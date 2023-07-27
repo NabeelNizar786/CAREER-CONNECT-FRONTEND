@@ -1,42 +1,41 @@
+import React from 'react'
+import { useState } from 'react'
 import NavBar from '../../components/navBar';
-import google from '../../assets/google.png'
-import {Link, useNavigate} from 'react-router-dom'
-import { useState } from 'react';
-import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
-import { userLogin } from '../../services/userApi';
+import { empLogin } from '../../services/EmpApi';
 
-const Login = () => {
+function EmployerLogin() {
 
-  const [values, setValues] = useState({email:"", password:""})
-  ;
+  const [values, setValues] = useState({email:"", password:""});
+
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-      dispatch(showLoading());
-      userLogin({...values})
+      dispatch(showLoading())
+      empLogin({...values})
       .then((res) => {
         dispatch(hideLoading());
-        localStorage.setItem("userJwt", res.data.token);
         if(res.data.login) {
+          localStorage.setItem("empJwt",res.data.token);
+          navigate('/employer/empHome');
           toast.success(res.data.message);
-          navigate('/user/home');
         }
       })
-      .catch((error) => {
+      .catch((error)=>{
         dispatch(hideLoading());
         console.log(error);
         toast.error(error.response.data.message);
       });
     } catch (error) {
       dispatch(hideLoading());
-      console.log(error);
-      toast.error("An error occured. Please try again");
+      console.error(error);
+      toast.error("AN ERROR OCCURED. PLEASE TRY AGAIN")
     }
   };
 
@@ -50,8 +49,8 @@ const Login = () => {
       <NavBar/>
     <div className="flex items-center justify-center min-h-screen bg-gray-200 ">
       <div className="max-w-md w-full p-6 bg-blue-100 shadow-lg rounded-lg">
-      <h1 className="text-2xl font-bold text-center mb-6 whitespace-nowrap"style={optionStyle}>LOGIN TO FIND YOUR PASSION</h1>
-        <h1 className="text-3xl font-bold text-center mb-6 "style={optionStyle}>USER LOGIN</h1>
+      <h1 className="text-2xl font-bold text-center mb-6 whitespace-nowrap"style={optionStyle}>WELCOME BACK</h1>
+        <h1 className="text-3xl font-bold text-center mb-6 "style={optionStyle}>FIND THE PERFECT FIT FOR YOUR COMPANY'S SUCCESS!</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label style={optionStyle} htmlFor="email" className="block font-bold">
@@ -90,24 +89,13 @@ const Login = () => {
             </button>
           </div>
         </form>
-        <div className="flex items-center justify-center mt-4">
-            <hr className="w-full border-gray-300" />
-            <span className="text-gray-500 mx-4">OR</span>
-            <hr className="w-full border-gray-300" />
-          </div>
-          <div className="flex items-center justify-center mt-4">
-            <img src={google} alt="Google Logo" className="h-6 mr-2" />
-            <button className="bg-white text-gray-600 font-semibold py-2 px-4 rounded border border-gray-300 hover:bg-gray-100 focus:outline-none">
-              Login with Google
-            </button>
-          </div>
           <p className="text-black-600 mt-6" style={optionStyle}>Don't have an account? 
-            <Link to="/user/register" style={{ textDecoration: 'underline', marginLeft: '10px', color: 'rgba(0, 0, 255, 1.0)' }}>Sign up</Link>
+            <Link to="employer/empRegister" style={{ textDecoration: 'underline', marginLeft: '10px', color: 'rgba(0, 0, 255, 1.0)' }}>Sign up</Link>
           </p>
       </div>
     </div>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default EmployerLogin
