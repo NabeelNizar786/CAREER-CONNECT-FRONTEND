@@ -5,7 +5,7 @@ import { auth } from "../../firebase/firebase";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../../redux/alertsSlice";
-import { forgotPassUser } from "../../services/userApi";
+import { forgotPassEmp } from "../../services/EmpApi";
 
 
 function ForgotPassword() {
@@ -20,7 +20,7 @@ function ForgotPassword() {
   const handleSubmit = async () => {
     try {
       dispatch(showLoading());
-      forgotPassUser({ ...values })
+      forgotPassEmp({ ...values })
         .then((res) => {
           dispatch(hideLoading());
           if (res.data.success) {
@@ -65,21 +65,19 @@ function ForgotPassword() {
       if (values.phone.length !== 10)
         return toast.error("ENTER A VALID NUMBER");
       dispatch(showLoading());
-      forgotPassUser({ ...values, check })
+      forgotPassEmp({ ...values, check })
         .then((res) => {
           dispatch(hideLoading());
           if (res.status === 200) {
             toast.success(res.data.message);
             sendOtp();
-          } else if (res.status === 400){
-            toast.error(res.data.message);
           } else {
-            toast.error("An unexpected error occurred.");
+            toast.error(res.data.message);
           }
         })
         .catch((error) => {
           dispatch(hideLoading());
-          toast.error(error.response.data.message)
+          toast.error(error.message);
         });
     } catch (error) {
       dispatch(hideLoading());
@@ -116,8 +114,7 @@ function ForgotPassword() {
         .confirm(otpNumber)
         .then(async () => {
           handleSubmit();
-          toast.success("PASSWORD CHANGED SUCCESSFULLY");
-          navigate('/user/login');
+          navigate('/employer/empLogin');
         })
         .catch(() => {
           toast.error("The entered otp do not match ");

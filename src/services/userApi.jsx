@@ -17,7 +17,7 @@ const isUserAuth = () => {
 };
 
 const forgotPassUser = (value) => {
-  return userAxiosInstence.post('/forgotPass', value, {
+  return userAxiosInstence.patch('/forgotPass', value, {
     withCredentials:true
   })
 }

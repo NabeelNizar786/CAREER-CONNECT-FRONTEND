@@ -16,8 +16,15 @@ const isEmpAuth=()=>{
   return empAxiosInstance.get("/empAuth", {withCredentials:true})
 }
 
+const forgotPassEmp = (value) => {
+  return empAxiosInstance.patch('/forgotPass', value, {
+    withCredentials:true
+  })
+}
+
 export{
   isEmpAuth,
   empSignUp,
-  empLogin
+  empLogin,
+  forgotPassEmp
 }
