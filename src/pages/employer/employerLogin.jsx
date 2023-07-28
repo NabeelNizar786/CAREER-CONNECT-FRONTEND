@@ -1,17 +1,64 @@
 import React from "react";
-import { useState } from "react";
+import google from "../../assets/google.png";
+import { useState, useEffect } from "react";
+import axios from 'axios';
 import NavBar from "../../components/navBar";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
-import { empLogin } from "../../services/EmpApi";
+import { empLogin, empLoginWithGoogle } from "../../services/EmpApi";
+import { useGoogleLogin } from "@react-oauth/google";
 
 function EmployerLogin() {
   const [values, setValues] = useState({ email: "", password: "" });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [user, setUser] = useState([]);
+
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  });
+
+  useEffect(
+    () => {
+        if (user) {
+            axios
+                .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+                    headers: {
+                        Authorization: `Bearer ${user.access_token}`,
+                        Accept: 'application/json'
+                    }
+                })
+                .then((res) => {
+                  const userProfile = res.data;
+                  dispatch(showLoading())
+                  empLoginWithGoogle(userProfile)
+                  .then((res)=> {
+                    
+                    if(res.data.login) {
+                      console.log(res.data.userData);
+                    }
+                    dispatch(hideLoading());
+                    toast.success(res.data.message);
+                      localStorage.setItem('empJwt', res.data.token);
+                      navigate('/employer/empHome');
+
+                  })
+                  .catch((error) => {
+                    dispatch(hideLoading());
+                    console.log(error.message);
+                    toast.error(error.response.data.message);
+                  });
+                })
+                .catch((err) => console.log(err));
+        }
+    },
+    [ user ]
+);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -118,6 +165,17 @@ function EmployerLogin() {
               </button>
             </div>
           </form>
+          <div className="flex items-center justify-center mt-4">
+            <hr className="w-full border-gray-300" />
+            <span className="text-gray-500 mx-4">OR</span>
+            <hr className="w-full border-gray-300" />
+          </div>
+          <div className="flex items-center justify-center mt-4">
+            <img src={google} alt="Google Logo" className="h-6 mr-2" />
+            <button type="button" onClick={login} className="bg-white text-gray-600 font-semibold py-2 px-4 rounded border border-gray-300 hover:bg-gray-100 focus:outline-none">
+              Login with Google
+            </button>
+          </div>
           <p className="text-black-600 mt-6" style={optionStyle}>
             Don't have an account?
             <Link

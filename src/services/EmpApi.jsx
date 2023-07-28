@@ -12,6 +12,12 @@ const empLogin = (value) => {
   })
 }
 
+const empLoginWithGoogle = (value) => {
+  return empAxiosInstance.post('/googleLogin', value, {
+    withCredentials:true
+  })
+}
+
 const isEmpAuth=()=>{
   return empAxiosInstance.get("/empAuth", {withCredentials:true})
 }
@@ -26,5 +32,6 @@ export{
   isEmpAuth,
   empSignUp,
   empLogin,
-  forgotPassEmp
+  forgotPassEmp,
+  empLoginWithGoogle
 }

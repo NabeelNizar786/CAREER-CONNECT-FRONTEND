@@ -6,6 +6,12 @@ const userLogin = (value) => {
   })
 }
 
+const userLoginWithGoogle = (value) => {
+  return userAxiosInstence.post('/googleLogin', value, {
+    withCredentials:true
+  })
+}
+
 const userSignup = (value) => {
   return userAxiosInstence.post('/register', value, {
     withCredentials:true
@@ -26,6 +32,7 @@ const forgotPassUser = (value) => {
 export{
   userLogin,
   userSignup,
+  userLoginWithGoogle,
   isUserAuth,
   forgotPassUser
 };

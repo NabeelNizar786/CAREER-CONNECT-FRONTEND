@@ -1,17 +1,62 @@
 import NavBar from "../../components/navBar";
 import google from "../../assets/google.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
-import { userLogin } from "../../services/userApi";
+import { userLogin, userLoginWithGoogle } from "../../services/userApi";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
   const [values, setValues] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [user, setUser] = useState([]);
+
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  });
+
+  useEffect(
+    () => {
+        if (user) {
+            axios
+                .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+                    headers: {
+                        Authorization: `Bearer ${user.access_token}`,
+                        Accept: 'application/json'
+                    }
+                })
+                .then((res) => {
+                  const userProfile = res.data;
+                  dispatch(showLoading())
+                  userLoginWithGoogle(userProfile)
+                  .then((res)=> {
+                    
+                    if(res.data.login) {
+                      console.log(res.data.userData);
+                    }
+                    dispatch(hideLoading());
+                    toast.success(res.data.message)
+                      localStorage.setItem('userJwt', res.data.token);
+                      navigate('/user/home');
+
+                  })
+                  .catch((error) => {
+                    dispatch(hideLoading());
+                    console.log(error.message);
+                    toast.error(error.response.data.message);
+                  });
+                })
+                .catch((err) => console.log(err));
+        }
+    },
+    [ user ]
+);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -90,7 +135,7 @@ const Login = () => {
                 Password:
               </label>
               <Link
-                to='/user/forgotPass'
+                to="/user/forgotPass"
                 className="text-blue-500 underline hover:no-underline focus:no-underline"
               >
                 Forgot Password?
@@ -125,7 +170,7 @@ const Login = () => {
           </div>
           <div className="flex items-center justify-center mt-4">
             <img src={google} alt="Google Logo" className="h-6 mr-2" />
-            <button className="bg-white text-gray-600 font-semibold py-2 px-4 rounded border border-gray-300 hover:bg-gray-100 focus:outline-none">
+            <button type="button" onClick={login} className="bg-white text-gray-600 font-semibold py-2 px-4 rounded border border-gray-300 hover:bg-gray-100 focus:outline-none">
               Login with Google
             </button>
           </div>
@@ -135,7 +180,7 @@ const Login = () => {
               to="/user/register"
               className="text-blue-500 underline hover:no-underline focus:no-underline ml-2"
             >
-            Sign up
+              Sign up
             </Link>
           </p>
         </div>
