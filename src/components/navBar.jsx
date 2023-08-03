@@ -1,13 +1,10 @@
 import React from 'react';
-import logo from '../assets/R.png'
+import logo from '../assets/R.png';
+import { FiHome, FiUser, FiLogOut } from 'react-icons/fi'; // Import icons from react-icons library
 
-const NavBar = () => {
-
+const NavBar = ({ isAuthenticated, logOut }) => { // Receive isAuthenticated as a prop
   const headingStyle = {
-    fontFamily: 'Montserrat, sans-serif',
-    fontWeight: 'bold',
-    fontSize: '25px',
-    marginBottom: '1px',
+    color: 'black',
   };
 
   return (
@@ -17,9 +14,22 @@ const NavBar = () => {
           <img src={logo} alt="Logo" className="h-16" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-black-500" style={headingStyle}>CAREER</h1>
-          <h1 className="text-2xl font-bold text-black-500" style={headingStyle}>CONNECT.COM</h1>
+          <h1 className="text-2xl font-bold" style={headingStyle}>CAREER</h1>
+          <h1 className="text-2xl font-bold" style={headingStyle}>CONNECT.COM</h1>
         </div>
+        {isAuthenticated && ( // Only render the icons if the user is authenticated
+          <div className="ml-auto flex items-center">
+            <a  className="mr-8 hover:text-blue-600 cursor-pointer">
+              <FiHome size={35} />
+            </a>
+            <a  className="mr-8 hover:text-blue-600 cursor-pointer">
+              <FiUser size={35} />
+            </a>
+            <a onClick={logOut} className='hover:text-blue-600 cursor-pointer' >
+              <FiLogOut size={35} />
+            </a>
+          </div>
+        )}
       </div>
     </nav>
   );

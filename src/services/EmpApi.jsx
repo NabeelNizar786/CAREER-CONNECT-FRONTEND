@@ -28,10 +28,45 @@ const forgotPassEmp = (value) => {
   })
 }
 
+const skillData = () => {
+  return empAxiosInstance.get('/skillData', {
+    withCredentials:true
+  })
+}
+
+const cityData = () => {
+  return empAxiosInstance.get('/cityData', {
+    withCredentials:true
+  })
+}
+
+const getActivePostData = () => {
+  return empAxiosInstance.get('/getActivePostData', {
+    withCredentials:true
+  })
+}
+
+const getPostData = () => {
+  return empAxiosInstance.get('/getPostData', {
+    withCredentials:true
+  })
+}
+
+const createPost = (values) => {
+  return empAxiosInstance.post('/createPost', values, {
+    withCredentials:true
+  })
+}
+
 export{
   isEmpAuth,
   empSignUp,
   empLogin,
   forgotPassEmp,
-  empLoginWithGoogle
+  empLoginWithGoogle,
+  skillData,
+  cityData,
+  getActivePostData,
+  getPostData,
+  createPost
 }

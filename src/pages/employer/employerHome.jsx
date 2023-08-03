@@ -1,13 +1,51 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
 import { toast } from 'react-hot-toast';
+import { skillData, cityData, getActivePostData } from '../../services/EmpApi';
+import NewJobPost from '../../components/employer/home/NewJob';
+import ViewAllPost from '../../components/employer/home/ViewAllPosts';
+import EmpPosts from '../../components/employer/home/EmpPosts';
 
 function EmployerHome() {
 
+
   const Navigate = useNavigate()
   const dispatch = useDispatch()
+
+  const [skills, setSkills] = useState([]);
+  const [citys, setCitys] = useState([]);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    dispatch(showLoading());
+    skillData()
+    .then((res) => {
+      setSkills(res.data.skillData);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    cityData()
+    .then((res) => {
+      setCitys(res.data.cityData);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    getActivePostData()
+    .then((res)=> {
+      dispatch(hideLoading());
+
+      setPosts(res.data.postData);
+    })
+    .catch((err) => {
+      dispatch(hideLoading());
+      console.log(err);
+    });
+  }, []);
+  
 
   const logOut = () => {
     dispatch(showLoading());
@@ -20,39 +58,29 @@ function EmployerHome() {
   };
 
   return (
-    <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 min-h-screen">
-      <nav className="bg-white p-4">
-        <div className="container mx-auto">
-          <ul className="flex items-center justify-between">
-            <li>
-              <a href="#" className="text-purple-500 text-lg font-bold">
-                Your Logo
-              </a>
-            </li>
-            <li>
-              {/* Add more menu items as needed */}
-              <a href="#" className="text-gray-700 mx-4">
-                Home
-              </a>
-              <a href="#" className="text-gray-700 mx-4">
-                About
-              </a>
-              <a href="#" className="text-gray-700 mx-4">
-                Contact
-              </a>
-            </li>
-            <button onClick={logOut} className="text-gray-700 mx-4">
-                Logout
-              </button>
-          </ul>
-        </div>
-      </nav>
-      <div className="container mx-auto p-8">
-        <h1 className="text-4xl font-bold text-white mb-4">Welcome to Employer Home</h1>
-        <p className="text-lg text-white">
-          Your beautiful content goes here...
-        </p>
+    <div className='bg-blue-500 py-2'>
+      <div className="flex flex-row items-center md:mx-20 mx-3 justify-between">
+        <div className="md:text-4xl font-black   ">WELCOME BACK, EMPLOYER</div>
+          <NewJobPost skills={skills} citys={citys} setPosts={setPosts} />
       </div>
+
+      <ViewAllPost/>
+      {posts.length != 0 ? (
+        <>
+          <div>
+            <EmpPosts
+              posts={posts.filter((post) => post.status == "Active")}
+              skills={skills}
+              citys={citys}
+              setPosts={setPosts}
+            />
+          </div>
+        </>
+      ) : (
+        <div className="flex justify-center mt-20">
+          <h1 className="text-3xl font-bold">You Dont Have Any Active Posts</h1>
+        </div>
+      )}
     </div>
   );
 }

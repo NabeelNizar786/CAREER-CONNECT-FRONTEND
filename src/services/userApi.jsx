@@ -28,11 +28,27 @@ const forgotPassUser = (value) => {
   })
 }
 
+const userGetAllPost = () => {
+  return userAxiosInstence.get('/getAllPost', {
+    withCredentials:true
+  })
+}
+
+const userGetCityDetails = () => {
+  return userAxiosInstence.get("/cityDetails", { withCredentials: true });
+};
+const userGetSkillsData = () => {
+  return userAxiosInstence.get("/skillData", { withCredentials: true });
+};
+
 
 export{
   userLogin,
   userSignup,
   userLoginWithGoogle,
   isUserAuth,
-  forgotPassUser
+  forgotPassUser,
+  userGetAllPost,
+  userGetCityDetails,
+  userGetSkillsData
 };

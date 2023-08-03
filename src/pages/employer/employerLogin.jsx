@@ -25,7 +25,7 @@ function EmployerLogin() {
 
   useEffect(
     () => {
-        if (user) {
+        if (user.access_token) {
             axios
                 .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
                     headers: {
@@ -179,7 +179,7 @@ function EmployerLogin() {
           <p className="text-black-600 mt-6" style={optionStyle}>
             Don't have an account?
             <Link
-              to="employer/empRegister"
+              to="/employer/empRegister"
               style={{
                 textDecoration: "underline",
                 marginLeft: "10px",
