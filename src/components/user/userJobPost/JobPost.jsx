@@ -1,5 +1,7 @@
 import React,{useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import ViewDetails from './ViewDetails';
+
 
 export default function JobPost({posts}) {
 
@@ -65,7 +67,7 @@ export default function JobPost({posts}) {
           </div>
           <div className="flex flex-col">
             <div className="flex md:justify-end">
-              {/* <ViewDetailsButton id={post._id}/> */}
+               <ViewDetails id={post._id}/>
             </div>
             <div className="flex md:justify-end mt-auto me-9 ">
               <span className="md:text-xl font-bold">

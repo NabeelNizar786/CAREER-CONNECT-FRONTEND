@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
 import { userLogin, userLoginWithGoogle } from "../../services/userApi";
 import { useGoogleLogin } from "@react-oauth/google";
+import { updateUserDetails } from "../../redux/user/userSlice";
+
 
 const Login = () => {
   const [values, setValues] = useState({ email: "", password: "" });
@@ -41,6 +43,7 @@ const Login = () => {
                       console.log(res.data.userData);
                     }
                     dispatch(hideLoading());
+                    dispatch(updateUserDetails(res.data.userData));
                     toast.success(res.data.message)
                       localStorage.setItem('userJwt', res.data.token);
                       navigate('/user/home');
@@ -65,6 +68,7 @@ const Login = () => {
       userLogin({ ...values })
         .then((res) => {
           dispatch(hideLoading());
+          dispatch(updateUserDetails(res.data.userData));
           localStorage.setItem("userJwt", res.data.token);
           if (res.data.login) {
             toast.success(res.data.message);

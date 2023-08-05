@@ -61,7 +61,7 @@ const JobSearch = ({setSearch, handleSearch}) => {
         </select>
       </div>
       <div className="w-full md:w-1/6">
-        <button type="submit" className="bg-blue-950 text-white w-full text-lg p-2.5 lg:ms-5 font-bold">
+        <button type="submit" className="mb-3 bg-blue-500 text-white w-full text-lg p-2.5 lg:ms-5 font-bold rounded">
           SEARCH
         </button>
       </div>
