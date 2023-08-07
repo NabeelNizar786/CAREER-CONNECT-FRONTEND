@@ -8,14 +8,32 @@ import BasicInfo from "../../components/user/profile/BasicInfo";
 import { useSelector } from "react-redux";
 import ChangePassModal from "../../components/user/profile/ChangePassModal";
 import { useNavigate } from "react-router-dom";
+import NavBar from "../../components/navBar";
+import { useDispatch } from "react-redux";
+import { showLoading,hideLoading } from "../../redux/alertsSlice";
+import { toast  } from "react-hot-toast";
 
 export default function UserProfile() {
   const navigate=useNavigate()
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.userData);
-console.log(userData);
+
+  const isAuthenticated = true;
+
+  const logOut = () => {
+    dispatch(showLoading());
+    localStorage.removeItem('userJwt');
+    setTimeout(() => {
+      dispatch(hideLoading());
+      navigate('/user/login');
+      toast.success('LOGOUT SUCCESSFULLY')
+    }, 1000); // Change the delay time as per your preference
+  };
  
   if (userData == null) return;
   return (
+    <>
+    <NavBar isAuthenticated={isAuthenticated} logOut = {logOut}/>
     <div className="grid lg:grid-cols-4 mt-6 lg:mx-9 mx-4 md:me-2 mb-5 ">
       <div className="col-span-4 lg:col-span-1 ">
         <ProfileImgComp userData={userData}/>
@@ -44,5 +62,6 @@ console.log(userData);
         <BasicInfo userData={userData}/>
       </div>
     </div>
+    </>
   );
 }

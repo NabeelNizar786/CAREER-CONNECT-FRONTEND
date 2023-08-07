@@ -80,7 +80,7 @@ export default function BasicInfoModal({userData}) {
                           id="name"
                           name="name"
                           className="mt-1 p-2   block w-full font-semibold shadow-sm md:text- border-gray-300 rounded-md"
-                          placeholder="Enter the Location"
+                          placeholder="Enter the Name"
                           onChange={handleChange}
                         />
                       </div>

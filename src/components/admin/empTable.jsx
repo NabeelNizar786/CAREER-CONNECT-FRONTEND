@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default function EmpTable({ empData }) {
+export default function EmpTable({ empData, change }) {
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto  ">

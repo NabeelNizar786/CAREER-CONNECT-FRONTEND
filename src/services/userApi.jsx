@@ -54,7 +54,7 @@ const applyJob = (data) => {
 }
 
 const changeUserImage = (data) => {
-  return userAxiosInstence.post('/changerUserImage', data, {
+  return userAxiosInstence.post('/changeUserImage', data, {
     withCredentials:true
   })
 }

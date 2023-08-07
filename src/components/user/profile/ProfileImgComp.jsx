@@ -5,6 +5,7 @@ import {
   faLocationDot,
   faPhone,
   faEnvelope,
+  faPerson
 } from "@fortawesome/free-solid-svg-icons";
 import { changeUserImage } from "../../../services/userApi";
 import {updateUserDetails} from '../../../redux/user/userSlice';
@@ -36,7 +37,7 @@ export default function ProPicComp({userData}) {
   };
 
   return (
-    <div className="bg-white border  flex flex-col  mb-3 lg:mx-8 p-6 rounded-xl shadow-md border-gray-500">
+    <div className="bg-blue-200 border  flex flex-col  mb-3 lg:mx-8 p-6 rounded-xl shadow-md border-gray-500">
       <div className="relative flex flex-col justify-center  mx-auto mb-4">
         <div className="">
           <img
@@ -53,13 +54,20 @@ export default function ProPicComp({userData}) {
         />
         <label
           htmlFor="new-image"
-          className="px-8 py-2 absolute  top-36 mt-4  bg-white font-bold cursor-pointer"
+          className="px-8 py-2 absolute  top-36 mt-8  bg-white font-bold cursor-pointer "
         >
           Update Image
         </label>
       </div>
       <div className="my-2 flex over justify-center">
         <h1 className="text-2xl  font-extrabold"> {userData.name}</h1>
+      </div>
+      <div className=" my-2">
+        <h1 className="text-lg flex font-medium">
+          {" "}
+          <FontAwesomeIcon className="me-3" color="" icon={faPerson} />{" "}
+          {userData.username.toUpperCase()}
+        </h1>
       </div>
       <div className=" my-2">
         <h1 className="text-lg flex font-medium">

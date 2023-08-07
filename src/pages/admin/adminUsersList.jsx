@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import UserTable from "../../components/admin/userTable";
 import { showLoading, hideLoading } from "../../redux/alertsSlice";
-import { adminUserDetails } from "../../services/adminApi";
+import { adminUserDetails, changeUserStatus } from "../../services/adminApi";
 import Layout from '../../components/Layout';
 
 
@@ -21,10 +21,20 @@ export default function User () {
     })
   },[]);
 
+  const changeStatus = (id, status) => {
+    changeUserStatus({ id: id, status: status })
+      .then((res) => {
+        setUserData(res.data.userData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <Layout>
     <div className="">
-      <UserTable userData={userData}/>
+      <UserTable change={changeStatus} userData={userData}/>
     </div>
     </Layout>
 

@@ -54,6 +54,18 @@ const isAdminAuth = () => {
   {withCredentials:true});
 };
 
+const changeUserStatus = (value) => {
+  return adminAxiosInstence.post('/changeUserStatus', value, {
+    withCredentials:true
+  })
+}
+
+const changeEmpStatus = (value) => {
+  return adminAxiosInstence.post('/changeEmpStatus', value, {
+    withCredentials:true
+  })
+}
+
 export {
   adminLogin,
   isAdminAuth,
@@ -64,5 +76,7 @@ export {
   adminCityDetails,
   adminAddCity,
   adminAddSkill,
-  adminSkillDetails
+  adminSkillDetails,
+  changeUserStatus,
+  changeEmpStatus
 };

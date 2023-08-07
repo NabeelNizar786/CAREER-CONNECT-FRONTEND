@@ -66,7 +66,7 @@ return (
                         htmlFor="company"
                         className="block text-2xl font-semibold text-black"
                       >
-                        Phone
+                        New Password
                       </label>
                       <input
                         type="password"
@@ -74,7 +74,7 @@ return (
                         
                         name="newpass"
                         className="mt-1 p-2  block w-full font-semibold shadow-sm md:text- border-gray-300 rounded-md"
-                        placeholder="Enter the phone number"
+                        placeholder="Enter new password"
                         onChange={(e)=>setNewPass(e.target.value)}
                       />
                     </div>

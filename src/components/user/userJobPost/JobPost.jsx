@@ -11,10 +11,12 @@ export default function JobPost({posts}) {
     navigate("/user/employer/profile",{state:{id}});
   };
 
+  console.log(posts.empId);
+
   return (
     <>
     <div className="">
-      {posts.map((post, index) => (
+      {posts?.length > 0 && posts.map((post, index) => (
         <div
           key={index}
           className="bg-white md:mx-24 border  grid md:grid-cols-2 m-3 md:p-4 p-3 shadow-xl border-gray-400 rounded-xl"
