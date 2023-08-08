@@ -1,16 +1,16 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
-export const empSlice = createSlice({
+export const EmpSlice = createSlice({
   name:"employer",
   initialState: {
     empData: null,
   },
-  reducer:{
-    UpdateEmpDetails: (state, action) => {
+  reducers: {
+    updateEmpDetails: (state, action) => {
       state.empData = action.payload;
-    }
-  }
+    },
+  },
 });
 
-export const {UpdateEmpDetails} = empSlice.actions;
-export default empSlice.reducer;
+export const {updateEmpDetails} = EmpSlice.actions;
+export default EmpSlice.reducer

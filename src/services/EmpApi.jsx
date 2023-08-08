@@ -58,6 +58,24 @@ const createPost = (values) => {
   })
 }
 
+const empUpdateAbout = (value) => {
+  return empAxiosInstance.post('/updateAbout', value, {
+    withCredentials: true,
+  });
+};
+
+const empChangeUserImage = (value) => {
+  return empAxiosInstance.post('/changeImage', value, {
+    withCredentials:true
+  })
+}
+
+const empUpdateBasic = (value) => {
+  return empAxiosInstance.post('/updateBasicInfo', value, {
+    withCredentials:true
+  })
+}
+
 export{
   isEmpAuth,
   empSignUp,
@@ -68,5 +86,8 @@ export{
   cityData,
   getActivePostData,
   getPostData,
-  createPost
+  createPost,
+  empUpdateAbout,
+  empChangeUserImage,
+  empUpdateBasic
 }

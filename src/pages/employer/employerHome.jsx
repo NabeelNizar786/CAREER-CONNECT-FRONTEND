@@ -7,12 +7,15 @@ import { skillData, cityData, getActivePostData } from '../../services/EmpApi';
 import NewJobPost from '../../components/employer/home/NewJob';
 import ViewAllPost from '../../components/employer/home/ViewAllPosts';
 import EmpPosts from '../../components/employer/home/EmpPosts';
+import EmpNavBar from '../../components/employer/EmpNavbar';
 
 function EmployerHome() {
 
 
   const Navigate = useNavigate()
   const dispatch = useDispatch()
+
+  const isAuthenticated = true;
 
   const [skills, setSkills] = useState([]);
   const [citys, setCitys] = useState([]);
@@ -58,7 +61,9 @@ function EmployerHome() {
   };
 
   return (
-    <div className='bg-blue-500 py-2'>
+    <>
+    <EmpNavBar isAuthenticated={isAuthenticated} logOut = {logOut}/>
+    <div className='bg-blue-200 py-2'>
       <div className="flex flex-row items-center md:mx-20 mx-3 justify-between">
         <div className="md:text-4xl font-black   ">WELCOME BACK, EMPLOYER</div>
           <NewJobPost skills={skills} citys={citys} setPosts={setPosts} />
@@ -82,6 +87,7 @@ function EmployerHome() {
         </div>
       )}
     </div>
+    </>
   );
 }
 

@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
 import { empLogin, empLoginWithGoogle } from "../../services/EmpApi";
 import { useGoogleLogin } from "@react-oauth/google";
+import { updateEmpDetails } from "../../redux/employer/EmpSlice";
 
 function EmployerLogin() {
   const [values, setValues] = useState({ email: "", password: "" });
@@ -50,6 +51,7 @@ function EmployerLogin() {
                   })
                   .catch((error) => {
                     dispatch(hideLoading());
+                    dispatch(updateEmpDetails(res.data.empData))
                     console.log(error.message);
                     toast.error(error.response.data.message);
                   });
@@ -68,6 +70,7 @@ function EmployerLogin() {
         .then((res) => {
           dispatch(hideLoading());
           if (res.data.login) {
+            dispatch(updateEmpDetails(res.data.empData));
             localStorage.setItem("empJwt", res.data.token);
             navigate("/employer/empHome");
             toast.success(res.data.message);
