@@ -66,6 +66,8 @@ function Home() {
     <NavBar isAuthenticated={isAuthenticated} logOut = {logOut}/>
     <JobSearch setSearch={setSearch} handleSearch={handleSearch}/>
     <div className="bg-white h-3"></div>
+
+    <div className="px-4 md:px-8 lg:px-16 xl:px-32">
       {posts.length !== 0 ? (
         <div className="text-3xl text-center text-blue-950 font-extrabold my-3">
           Latest Job Offers
@@ -76,6 +78,7 @@ function Home() {
         </div>
       )}
       {posts.length !== 0 && <JobPost posts={posts} />}
+      </div>
     </div>
   )
 }

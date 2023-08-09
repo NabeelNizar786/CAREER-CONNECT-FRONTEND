@@ -12,6 +12,8 @@ function App() {
   const {loading} = useSelector((state) => state.alerts);
   return (
     <>
+    <div>
+    {/* <div className="w-full max-w-screen-lg"> */}
     <BrowserRouter>
     {loading && (<div className="spinner-parent" role="status">
   <span className="spinner-border"></span>
@@ -25,6 +27,8 @@ function App() {
       <Route path="/employer/*" element={<EmployerRoutes/>}/>
     </Routes>
     </BrowserRouter>
+    </div>
+    {/* </div> */}
     </>
   );
 }

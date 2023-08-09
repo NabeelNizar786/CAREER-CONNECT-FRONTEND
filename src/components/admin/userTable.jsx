@@ -1,7 +1,20 @@
-import React from 'react';
+import React,{useState} from 'react';
+import ConfirmBlock from './confirm/confirmBlock';
 
 
 export default function UserTable({ userData,change }) {
+
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const handleConfirmation = (user) => {
+    setSelectedUser(user);
+    setShowConfirmation(true);
+  };
+
+  const closeConfirmation = () => {
+    setShowConfirmation(false);
+  };
   
   return (
     <div className="flex flex-col">
@@ -34,12 +47,20 @@ export default function UserTable({ userData,change }) {
                     <td className="whitespace-nowrap font-bold md:text-lg md:px-6 px-2 md:py-4">{user.username}</td>
                     <td className="whitespace-nowrap font-bold md:text-lg md:px-6 px-2 md:py-4">{user.email}</td>
                     <td className="whitespace-nowrap font-bold ">
-                      <button onClick={()=>change(user._id,user.status?"false":"true")} className={`${user.status?"bg-red-700":"bg-green-600"} md:text-lg md:px-3 px-2 md:py-2 text-white rounded-md `}>{user.status?"block":"UnBlock"}</button>
+                      <button onClick={() => handleConfirmation(user)} className={`${user.status?"bg-red-700":"bg-green-600"} md:text-lg md:px-3 px-2 md:py-2 text-white rounded-md `}>{user.status?"block":"UnBlock"}</button>
                     </td>
                  
                   </tr>
                 ))}
               </tbody>
+               {/* Confirmation Modal */}
+      {showConfirmation && (
+        <ConfirmBlock
+          user={selectedUser}
+          change={change}
+          onClose={closeConfirmation}
+        />
+      )}
             </table>
           </div>
         </div>

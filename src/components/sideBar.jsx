@@ -1,12 +1,14 @@
 import React from 'react';
 import { HiLogout } from 'react-icons/hi';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertsSlice';
 import { toast } from 'react-hot-toast';
 
 function Sidebar() {
+
+  const location = useLocation();
 
   const Navigate = useNavigate()
   const dispatch = useDispatch()
@@ -24,10 +26,10 @@ function Sidebar() {
   return (
     <div className="bg-gray-800 w-64 min-h-screen p-4">
       <div className="text-white font-bold text-2xl mb-8">MENU</div>
-      <ul className="space-y-2">
+      <ul className="">
         <li
           className={`text-white py-2 mb-6 rounded cursor-pointer ${
-            window.location.pathname === '/AdminHome' ? 'bg-blue-500' : ''
+            location.pathname === '/admin/adminHome' ? 'bg-blue-500' : ''
           }`}
         >
           <Link to="/admin/adminHome" className="text-white hover:text-gray-400">
@@ -36,29 +38,37 @@ function Sidebar() {
         </li>
         <li
           className={`text-white py-2 mb-6 rounded cursor-pointer ${
-            window.location.pathname === '/usersList' ? 'bg-blue-500' : ''
+            location.pathname === '/admin/usersList' ? 'bg-blue-500' : ''
           }`}
         >
           <Link to="/admin/usersList" className="text-white hover:text-gray-400">
             <span className="mr-2 text-2xl">👥</span> USERS
           </Link>
         </li>
-        <li className="flex items-center mb-4">
+        <li className={`text-white py-2 mb-6 rounded cursor-pointer ${
+            location.pathname === '/admin/empList' ? 'bg-blue-500' : ''
+          }`}>
           <Link to="/admin/empList" className="text-white hover:text-gray-400">
             <span className="mr-2 text-2xl">🏢</span> COMPANIES
           </Link>
         </li>
-        <li className="flex items-center mb-4">
+        <li className={`text-white py-2 mb-6 rounded cursor-pointer ${
+            location.pathname === '/admin/approvalReq' ? 'bg-blue-500' : ''
+          }`}>
           <Link to="/admin/approvalReq" className="text-white hover:text-gray-400">
             <span className="mr-2 text-2xl">🏢</span> REQUESTS
           </Link>
         </li>
-        <li className="flex items-center mb-4">
+        <li className={`text-white py-2 mb-6 rounded cursor-pointer ${
+            location.pathname === '/admin/cityList' ? 'bg-blue-500' : ''
+          }`}>
           <Link to="/admin/cityList" className="text-white hover:text-gray-400">
             <span className="mr-2 text-2xl">🏢</span> CITIES
           </Link>
         </li>
-        <li className="flex items-center mb-4">
+        <li className={`text-white py-2 mb-6 rounded cursor-pointer ${
+            location.pathname === '/admin/skillsList' ? 'bg-blue-500' : ''
+          }`}>
           <Link to="/admin/skillsList" className="text-white hover:text-gray-400">
             <span className="mr-2 text-2xl">🏢</span> SKILLS
           </Link>
