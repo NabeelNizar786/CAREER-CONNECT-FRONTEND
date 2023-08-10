@@ -9,7 +9,7 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 
 
 const Register = () => {
-  const [values, setValues] = useState({username:"",email:"", phone:"", password:"" });
+  const [values, setValues] = useState({username:"",email:"", phone:"", password:"", confirmPassword:"" });
   const [otpValue, setOtpValue] = useState("");
   const [clicked, setClicked] = useState(true);
 
@@ -59,7 +59,10 @@ const Register = () => {
 
   const sendOtp = async (e) => {
     e.preventDefault();
-    onCaptchaVerify();
+    if(values.password !== values.confirmPassword) {
+      toast.error('PASSWORD IS INCORRECT!')
+    } else {
+      onCaptchaVerify();
 
     const phoneNumber = "+91" + values.phone;
     const appVerifier = window.recaptchaVerifier;
@@ -71,6 +74,7 @@ const Register = () => {
       toast.error(error.message);
     });
   }
+    }
 
   const otpVerify = () => {
     const otpNumber = otpValue;
@@ -138,6 +142,19 @@ const Register = () => {
             <input
               type="password"
               name="password"
+              id="password"
+              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+              onChange={(e) => setValues({...values, [e.target.name]: e.target.value})}
+              required
+            />
+          </div>
+          <div className="mb-6">
+            <label htmlFor="password" className="block font-bold mb-2">
+              CONFIRM PASSWORD:
+            </label>
+            <input
+              type="password"
+              name="confirmPassword"
               id="password"
               className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
               onChange={(e) => setValues({...values, [e.target.name]: e.target.value})}

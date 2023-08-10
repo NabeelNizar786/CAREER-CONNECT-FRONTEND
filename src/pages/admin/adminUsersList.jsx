@@ -5,12 +5,14 @@ import UserTable from "../../components/admin/userTable";
 import { showLoading, hideLoading } from "../../redux/alertsSlice";
 import { adminUserDetails, changeUserStatus } from "../../services/adminApi";
 import Layout from '../../components/Layout';
+import { useNavigate } from "react-router-dom";
 
 
 export default function User () {
 
   const [userData,setUserData] = useState([]);
   const dispatch = useDispatch();
+  const Navigate = useNavigate()
 
   useEffect(() => {
     dispatch(showLoading());
@@ -25,6 +27,9 @@ export default function User () {
     changeUserStatus({ id: id, status: status })
       .then((res) => {
         setUserData(res.data.userData);
+        if(localStorage.getItem('userJwt')) {
+          localStorage.removeItem('userJwt')
+        }
       })
       .catch((err) => {
         console.log(err);

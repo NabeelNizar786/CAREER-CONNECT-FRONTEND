@@ -7,6 +7,30 @@ export default function JobPost({posts}) {
 
   const navigate = useNavigate();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const postPerPage = 3;
+  const lastIndex = currentPage * postPerPage;
+  const firstIndex = lastIndex - postPerPage
+  const records = posts.slice(firstIndex, lastIndex);
+  const nPage = Math.ceil(posts.length / postPerPage);
+  const numbers = [...Array(nPage + 1).keys()].slice(1);
+
+  const nextPage = () => {
+    if(currentPage !== nPage) {
+      setCurrentPage(currentPage+1)
+    }
+  }
+
+  const prevPage = () => {
+    if(currentPage !== 1) {
+      setCurrentPage(currentPage-1)
+    }
+  }
+
+  const changeCPage = (id) => {
+    setCurrentPage(id)
+  }
+
   const navigateToProfile = (id) => {
     navigate("/user/employer/profile",{state:{id}});
   };
@@ -16,7 +40,7 @@ export default function JobPost({posts}) {
   return (
     <>
     <div className="">
-      {posts?.length > 0 && posts.map((post, index) => (
+      {records?.length > 0 && records.map((post, index) => (
         <div
           key={index}
           className="bg-white md:mx-24 border  grid md:grid-cols-2 m-3 md:p-4 p-3 shadow-xl border-gray-400 rounded-xl"
@@ -79,6 +103,36 @@ export default function JobPost({posts}) {
           </div>
         </div>
       ))}
+      <div className="flex justify-center  md:me-20 font-black">
+      <nav aria-label="Page navigation example">
+        <ul className="inline-flex -space-x-px m-5">
+          <li>
+            <button
+              onClick={prevPage}
+              className={`px-3 ${currentPage===1?"hidden":""} py-2 ml-0 leading-tight  text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+            >
+              Prev
+            </button>
+          </li>
+          {numbers.map((n, i) => (
+            <li key={i}>
+              <button onClick={()=>{changeCPage(n)}} key={i} className={`px-3 ${currentPage===n ?'bg-blue-300':''} py-2 leading-tight text-black-500 border border-gray-300  hover:text-gray-700 `}>
+               {n}
+              </button>
+            </li>
+          ))}
+
+          <li>
+            <button
+              onClick={nextPage}
+              className={`px-3 ${currentPage===nPage?"hidden":""} py-2 ml-0 leading-tight  text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+            >
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
+      </div>
       </div>
     </>
   );

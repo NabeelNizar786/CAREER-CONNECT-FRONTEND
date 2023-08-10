@@ -6,6 +6,7 @@ import EmployerHome from '../pages/employer/employerHome';
 import PrivateRoutes from '../protectedRoutes/privateRoutes';
 import ForgotPassword from '../pages/employer/forgotPass';
 import EmployerProfile from '../pages/employer/EmployerProfile';
+import JobApplicants from '../pages/employer/JobApplicants';
 
 export default function empRoute() {
   return (
@@ -16,6 +17,7 @@ export default function empRoute() {
       <Route element={<PrivateRoutes role={"employer"} route={'/employer/empLogin'}/>}>
         <Route path='/empHome' element={<EmployerHome/>}/>
         <Route path='/empProfile' element={<EmployerProfile/>}/>
+        <Route path='/jobApplicants' element={<JobApplicants/>}/>
       </Route>
     </Routes>
   )

@@ -52,6 +52,12 @@ const getPostData = () => {
   })
 }
 
+const getSinglePostData = (postId) => {
+  return empAxiosInstance.get(`/getSinglePostData/${postId}`, {
+    withCredentials:true
+  })
+}
+
 const createPost = (values) => {
   return empAxiosInstance.post('/createPost', values, {
     withCredentials:true
@@ -76,6 +82,13 @@ const empUpdateBasic = (value) => {
   })
 }
 
+const changeApplicationStatus = (postId, applicationId, newStatus, userId) => {
+  return empAxiosInstance.post(
+    `/changeApplicationStatus/${postId}/${applicationId}/${newStatus}/${userId}`,
+    {withCredentials:true}
+  )
+}
+
 export{
   isEmpAuth,
   empSignUp,
@@ -89,5 +102,7 @@ export{
   createPost,
   empUpdateAbout,
   empChangeUserImage,
-  empUpdateBasic
+  empUpdateBasic,
+  changeApplicationStatus,
+  getSinglePostData
 }

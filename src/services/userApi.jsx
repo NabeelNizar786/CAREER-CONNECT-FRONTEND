@@ -22,6 +22,7 @@ const isUserAuth = () => {
   return userAxiosInstence.get("/userAuth", { withCredentials: true });
 };
 
+
 const forgotPassUser = (value) => {
   return userAxiosInstence.patch('/forgotPass', value, {
     withCredentials:true
@@ -129,5 +130,5 @@ export{
   dropUserExp,
   addUserSkill,
   dropUserSkill,
-  changeUserPassword
+  changeUserPassword,
 };

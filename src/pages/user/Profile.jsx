@@ -12,8 +12,10 @@ import NavBar from "../../components/navBar";
 import { useDispatch } from "react-redux";
 import { showLoading,hideLoading } from "../../redux/alertsSlice";
 import { toast  } from "react-hot-toast";
+import { isUserAuth } from "../../services/userApi";
 
 export default function UserProfile() {
+  const [verify, setVerify] = useState(null);
   const navigate=useNavigate()
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.userData);
@@ -29,6 +31,32 @@ export default function UserProfile() {
       toast.success('LOGOUT SUCCESSFULLY')
     }, 1000); // Change the delay time as per your preference
   };
+
+  useEffect(() => {
+    isUserAuth()
+      .then((res) => {
+        if (res.data.success) {
+          setVerify(res.data.success);
+        } else {
+          setVerify(false);
+          localStorage.removeItem('userJwt');
+        }
+      })
+      .catch((err) => {
+        setVerify(false);
+        localStorage.removeItem('userJwt');
+        console.log(err);
+      });
+  }, []);
+
+  if (verify === false) {
+    toast.error("USER IS BLOCKED!");
+    return navigate('/user/login');
+  }
+
+  if (verify === null) {
+    return null; // or a loading indicator
+  }
  
   if (userData == null) return;
   return (

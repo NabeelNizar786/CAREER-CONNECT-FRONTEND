@@ -11,7 +11,9 @@ export default function PrivateRoutes({role, route}) {
     if(role === 'user') {
       isUserAuth()
         .then((res) => {
-          setVerify(res.data.success);
+          if(res.data.success) {
+            setVerify(res.data.success);
+          }
         })
         .catch((err) => {
           setVerify(false)
@@ -47,5 +49,6 @@ export default function PrivateRoutes({role, route}) {
   },[]);
 
   if (verify == null) return;
+
   return verify ? <Outlet/> : <Navigate to={route}/>
 }

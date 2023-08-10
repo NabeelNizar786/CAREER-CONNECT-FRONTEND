@@ -7,7 +7,7 @@ export default function EmpPosts({posts, skills,citys, setPosts}) {
   const navigate = useNavigate();
 
   const navigateToApplicants = (postId) => {
-    navigate('/employer/applicants',{state:{postId}});
+    navigate('/employer/jobApplicants',{state:{postId}});
 
   }
 
