@@ -61,7 +61,7 @@ export default function EmpPropic ({empData}) {
         <h1 className="text-2xl  font-extrabold"> {empData.cmpName}</h1>
       </div>
       <div className=" my-2">
-        <h1 className="text-lg flex font-medium">
+        <h1 className="text-md flex font-medium">
           {" "}
           <FontAwesomeIcon className="me-3" color="" icon={faEnvelope} />{" "}
           {empData.email}

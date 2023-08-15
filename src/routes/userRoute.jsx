@@ -9,11 +9,13 @@ import JobDetailedView from '../pages/user/JobDetailedView';
 import Profile from '../pages/user/Profile';
 import { useNavigate } from "react-router-dom";
 import PublicRoute from "../protectedRoutes/PublicRoutes";
+import NotFoundPage from "../pages/NotFoundPage";
 
 export default function UserRoutes() {
   
   return (
     <Routes>
+    <Route path="*" element={<NotFoundPage />} />
       <Route path="/login" element={<PublicRoute><Login/></PublicRoute>}/>
       <Route path="/register" element={<PublicRoute><Register/></PublicRoute>}/>
       <Route path="/forgotPass" element={<ForgotPassword/>}/>

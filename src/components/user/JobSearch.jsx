@@ -38,6 +38,17 @@ const JobSearch = ({setSearch, handleSearch}) => {
          onChange={(event) => setSearch(prevState => ({ ...prevState, city: event.target.value }))}
 
           id="city"
+          className="bg-white shadow-lg border border-gray-300 text-gray-950 text-lg rounded-lg w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white mb-2"
+        >
+          <option value="">Choose a city</option>
+          {citys.map((city,i)=>(
+          <option key={i} value={city.city}>{city.city}</option>
+          ))}
+        </select>
+        <select
+         onChange={(event) => setSearch(prevState => ({ ...prevState, city2: event.target.value }))}
+
+          id="city"
           className="bg-white shadow-lg border border-gray-300 text-gray-950 text-lg rounded-lg w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
         >
           <option value="">Choose a city</option>
@@ -50,6 +61,18 @@ const JobSearch = ({setSearch, handleSearch}) => {
         <select
           id="skill"
           onChange={(event) => setSearch(prevState => ({ ...prevState, skill: event.target.value }))}
+
+          className="bg-white shadow-lg border border-gray-300 text-gray-950 text-lg rounded-lg w-full lg:ms-2 p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white mb-2"
+        >
+          <option value="">Choose a skill</option>
+          {skills.map((skill,i)=>(
+          <option  key={i} value={skill.skill}>{skill.skill}</option>
+          ))}
+       
+        </select>
+        <select
+          id="skill"
+          onChange={(event) => setSearch(prevState => ({ ...prevState, skill2: event.target.value }))}
 
           className="bg-white shadow-lg border border-gray-300 text-gray-950 text-lg rounded-lg w-full lg:ms-2 p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
         >

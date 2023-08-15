@@ -18,24 +18,31 @@ function Home() {
   const [allPosts, setAllPost] = useState([]);
   const [search, setSearch] = useState({
     city:'',
-    skill:''
+    skill:'',
+    city2:'',
+    skill2:'',
   });
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    dispatch(showLoading());
-    setTimeout(() => {
-      const filteredDocuments = allPosts.filter((post) => {
-        const isCityMatch = search.city === '' || post.location === search.city;
-        const isSkillMatch =
-          search.skill === '' || post.skills.includes(search.skill);
-        return isCityMatch && isSkillMatch;
-      });
-      setPosts(filteredDocuments);
-      dispatch(hideLoading()); // Hide loading after filtering and updating posts
-    }, 1000); 
-  }
+const handleSearch = (e) => {
+  e.preventDefault();
+  dispatch(showLoading());
+  setTimeout(() => {
+    const filteredDocuments = allPosts.filter((post) => {
+      const isCityMatch = 
+        (!search.city || post.location === search.city) ||
+        (!search.city2 || post.location === search.city2);
+        
+      const isSkillMatch = 
+        (!search.skill || post.skills.includes(search.skill)) &&
+        (!search.skill2 || post.skills.includes(search.skill2));
 
+      return isCityMatch && isSkillMatch;
+    });
+
+    setPosts(filteredDocuments);
+    dispatch(hideLoading());
+  }, 1000); 
+}
   useEffect(() => {
     dispatch(showLoading());
     userGetAllPost()
