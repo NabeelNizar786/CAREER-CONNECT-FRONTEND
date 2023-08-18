@@ -7,6 +7,8 @@ import PrivateRoutes from '../protectedRoutes/privateRoutes';
 import ForgotPassword from '../pages/employer/forgotPass';
 import EmployerProfile from '../pages/employer/EmployerProfile';
 import JobApplicants from '../pages/employer/JobApplicants';
+import PremiumPlan from '../pages/employer/PremiumPlan';
+import PaymentSuccess from '../pages/employer/PaymentSuccess';
 
 export default function empRoute() {
   return (
@@ -18,6 +20,8 @@ export default function empRoute() {
         <Route path='/empHome' element={<EmployerHome/>}/>
         <Route path='/empProfile' element={<EmployerProfile/>}/>
         <Route path='/jobApplicants' element={<JobApplicants/>}/>
+        <Route path='/subscription' element={<PremiumPlan/>}/>
+        <Route path='/paymentSuccess/:empId' element={<PaymentSuccess/>}/>
       </Route>
     </Routes>
   )

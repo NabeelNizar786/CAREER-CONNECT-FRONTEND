@@ -73,6 +73,13 @@ function Sidebar() {
             <span className="mr-2 text-2xl">🏢</span> SKILLS
           </Link>
         </li>
+        <li className={`text-white py-2 mb-6 rounded cursor-pointer ${
+            location.pathname === '/admin/subscriptionsList' ? 'bg-blue-500' : ''
+          }`}>
+          <Link to="/admin/subscriptionsList" className="text-white hover:text-gray-400">
+            <span className="mr-2 text-2xl">🏢</span> SUBSCRIPTIONS
+          </Link>
+        </li>
         <li className="flex items-center mb-4">
           <button onClick={logOut} className="text-white hover:text-gray-400">
             <span className="mr-2 text-2xl">{<HiLogout/>}</span> LOGOUT

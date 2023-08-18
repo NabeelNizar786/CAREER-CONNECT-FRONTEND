@@ -17,32 +17,40 @@ function Home() {
   const [posts, setPosts] = useState([]);
   const [allPosts, setAllPost] = useState([]);
   const [search, setSearch] = useState({
-    city:'',
-    skill:'',
-    city2:'',
-    skill2:'',
+    city:[],
+    skill:[],
   });
+
 
 const handleSearch = (e) => {
   e.preventDefault();
-  dispatch(showLoading());
-  setTimeout(() => {
-    const filteredDocuments = allPosts.filter((post) => {
-      const isCityMatch = 
-        (!search.city || post.location === search.city) ||
-        (!search.city2 || post.location === search.city2);
-        
-      const isSkillMatch = 
-        (!search.skill || post.skills.includes(search.skill)) &&
-        (!search.skill2 || post.skills.includes(search.skill2));
-
-      return isCityMatch && isSkillMatch;
-    });
-
-    setPosts(filteredDocuments);
-    dispatch(hideLoading());
-  }, 1000); 
-}
+  if (search.city.length === 0 && search.skill.length === 0) {
+    toast.error('ENTER A VALUE');
+  } else {
+    dispatch(showLoading());
+    setTimeout(() => {
+      console.log('search.city:', search.city); // Add this line
+      console.log('search.skill:', search.skill); // Add this line
+      const filteredDocuments = allPosts.filter((post) => {
+        const isCityMatch =
+          search.city.length === 0 || search.city.some(city => city.value === post.location);
+      
+        const isSkillMatch =
+          search.skill.length === 0 || search.skill.some(skill => post.skills.includes(skill.value));
+      
+        console.log('isCityMatch:', isCityMatch);
+        console.log('isSkillMatch:', isSkillMatch);
+      
+        return isCityMatch && isSkillMatch;
+      });
+      
+  
+      console.log('filteredDocuments:', filteredDocuments); 
+      setPosts(filteredDocuments);
+      dispatch(hideLoading());
+    }, 1000); 
+  }
+  }
   useEffect(() => {
     dispatch(showLoading());
     userGetAllPost()

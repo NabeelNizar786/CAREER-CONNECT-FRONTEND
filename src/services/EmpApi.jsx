@@ -89,6 +89,18 @@ const changeApplicationStatus = (postId, applicationId, newStatus, userId) => {
   )
 }
 
+const subscription = () => {
+  return empAxiosInstance.post('/subscription', {
+    withCredentials:true
+  });
+}
+
+const paymentVerification = (value) => {
+  return empAxiosInstance.post(`/verifyPayment/${value}`, {
+    withCredentials:true
+  })
+};
+
 export{
   isEmpAuth,
   empSignUp,
@@ -104,5 +116,7 @@ export{
   empChangeUserImage,
   empUpdateBasic,
   changeApplicationStatus,
-  getSinglePostData
+  getSinglePostData,
+  subscription,
+  paymentVerification
 }

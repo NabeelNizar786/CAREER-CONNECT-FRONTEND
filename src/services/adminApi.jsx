@@ -66,6 +66,12 @@ const changeEmpStatus = (value) => {
   })
 }
 
+const getSubscriptionDetails = (value) => {
+  return adminAxiosInstence.get('/subscriptionDetails', {
+    withCredentials:true
+  })
+};
+
 export {
   adminLogin,
   isAdminAuth,
@@ -78,5 +84,6 @@ export {
   adminAddSkill,
   adminSkillDetails,
   changeUserStatus,
-  changeEmpStatus
+  changeEmpStatus,
+  getSubscriptionDetails
 };

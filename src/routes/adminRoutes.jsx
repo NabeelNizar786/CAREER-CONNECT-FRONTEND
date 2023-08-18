@@ -8,6 +8,7 @@ import Employers from "../pages/admin/adminEmpList";
 import Requests from "../pages/admin/requests";
 import City from "../pages/admin/City";
 import Skills from "../pages/admin/Skills";
+import Subscriptions from "../pages/admin/Subscriptions";
 
 
 
@@ -23,6 +24,7 @@ function AdminRoutes() {
         <Route path="/approvalReq" element={<Requests/>}/>
         <Route path="/cityList" element={<City/>}/>
         <Route path="/skillsList" element={<Skills/>}/>
+        <Route path="/subscriptionsList" element={<Subscriptions/>}/>
         </Route>
     </Routes>
   )
