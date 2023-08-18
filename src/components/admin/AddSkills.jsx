@@ -12,7 +12,7 @@ export default function AddSkills({fetchData}) {
 
     try {
       if (skill.trim() === "") {
-        return toast.warn("skill should't be empty");
+        return toast.error("skill should't be empty");
       }
       adminAddSkill({ skill })
         .then((res) => {
@@ -23,7 +23,10 @@ export default function AddSkills({fetchData}) {
         .catch((error) => {
           toast.warn(error.response.data.message);
           console.log(error);
-        });
+        })
+        .finally(() => {
+          setShowModal(false)
+        })
     } catch (error) {
       console.log(error.message);
     }

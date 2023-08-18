@@ -42,9 +42,22 @@ const adminAddCity = (value) => {
   })
 }
 
+const adminDropCity = (value) => {
+  return adminAxiosInstence.post('/dropCity', value, {
+    withCredentials:true
+  })
+};
+
 const adminAddSkill = (value) => {
   return adminAxiosInstence.post("/addskill", value, { withCredentials: true });
 };
+
+const adminDropSkill = (value) => {
+  return adminAxiosInstence.post('/dropSkill', value, {
+    withCredentials:true
+  })
+};
+
 const adminSkillDetails = () => {
   return adminAxiosInstence.get("/skillDetails", { withCredentials: true });
 };
@@ -85,5 +98,7 @@ export {
   adminSkillDetails,
   changeUserStatus,
   changeEmpStatus,
-  getSubscriptionDetails
+  getSubscriptionDetails,
+  adminDropCity,
+  adminDropSkill
 };

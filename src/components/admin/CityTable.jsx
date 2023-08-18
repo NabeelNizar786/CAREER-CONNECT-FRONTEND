@@ -1,11 +1,47 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { showLoading,hideLoading } from "../../redux/alertsSlice";
+import { adminDropCity } from "../../services/adminApi";
 
 export default function CityTable({CityData}) {
   const [Citys, setCitys] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [cityIdToDelete, setCityIdToDelete] = useState(null);
 
   useEffect(() => {
     setCitys([...CityData]);
   }, [CityData]);
+
+  const dropCity = (id) => {
+    setShowModal(true)
+    setCityIdToDelete(id)
+  };
+
+  const confirmDrop = () => {
+    if(cityIdToDelete) {
+      adminDropCity({id: cityIdToDelete})
+      .then((res) => {
+        console.log(res);
+        toast.success(res.data.message);
+        setCitys((prevData) => 
+        prevData.filter((city) => city._id !== cityIdToDelete))
+      })
+      .catch((error) => {
+        toast.error(error)
+        console.log(error);
+      })
+      .finally(() => {
+        setShowModal(false)
+        setCityIdToDelete(null);
+      })
+    }
+  }
+
+  const closeModal = () => {
+    setShowModal(false)
+    setCityIdToDelete(null);
+  }
 
   return (
     <div className="flex flex-col">
@@ -38,6 +74,7 @@ export default function CityTable({CityData}) {
                     <td className="whitespace-nowrap font-bold text-lg px-6 py-4">
                       <button
                         type="button"
+                        onClick={()=> dropCity(City._id)}
                         className="bg-red-700 text-white p-2 rounded-md"
                       >
                         DROP
@@ -47,9 +84,30 @@ export default function CityTable({CityData}) {
                 ))}
               </tbody>
             </table>
+            {showModal && (
+          <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-700">
+            <div className="bg-white p-6 rounded-md shadow-lg">
+              <p>Are you sure you want to drop this City?</p>
+              <div className="mt-4 flex justify-end">
+                <button
+                  onClick={confirmDrop}
+                  className="mr-2 bg-red-700 text-white p-2 rounded-md"
+                >
+                  Yes
+                </button>
+                <button
+                  onClick={closeModal}
+                  className="bg-gray-300 p-2 rounded-md"
+                >
+                  No
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
           </div>
         </div>
       </div>
     </div>
   )
-};
+}

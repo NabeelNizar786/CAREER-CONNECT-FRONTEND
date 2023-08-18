@@ -35,7 +35,7 @@ export default function City () {
 
     try {
       if (city.trim() === "") {
-        return toast.warn("city should't be empty");
+        return toast.error("city should't be empty");
       }
       adminAddCity({ city })
         .then((res) => {

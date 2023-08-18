@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { adminDropSkill } from "../../services/adminApi";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { showLoading,hideLoading } from "../../redux/alertsSlice";
@@ -7,10 +7,54 @@ import { showLoading,hideLoading } from "../../redux/alertsSlice";
 export default function SkillsTable({skillData}) {
 
   const [Skills, setSkills] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [skillIdToDelete, setSkillIdToDelete] = useState(null);
 
   useEffect(() => {
     setSkills([...skillData]);
   }, [skillData]);
+
+  const dropSkill = (id) => {
+    setShowModal(true);
+    setSkillIdToDelete(id);
+  }
+
+  const confirmDrop = () => {
+    if(skillIdToDelete) {
+      adminDropSkill({id: skillIdToDelete})
+      .then((res) => {
+        console.log(res);
+        toast.success(res.data.message);
+        setSkills((prevData) => 
+        prevData.filter((skill) => skill._id !== skillIdToDelete))
+      })
+      .catch((error) => {
+        toast.error(error)
+        console.log(error);
+      })
+      .finally(() => {
+        setShowModal(false);
+        setSkillIdToDelete(null);
+      })
+    }
+  }
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSkillIdToDelete(null);
+  }
+  // const dropSkill = (id) => {
+  //   adminDropSkill({id})
+  //   .then((res) => {
+  //     console.log(res);
+  //     toast.success(res.data.message);
+  //     setSkills((prevData) => prevData.filter((skill) => skill._id !== id));
+  //   })
+  //   .catch((error) => {
+  //     toast.error(error);
+  //     console.log(error);
+  //   });
+  // };
 
   return (
     <div className="flex w flex-col">
@@ -43,6 +87,7 @@ export default function SkillsTable({skillData}) {
                     <td className="whitespace-nowrap font-bold text-lg px-6 py-4">
                       <button
                         type="button"
+                        onClick={() => dropSkill(skill._id)}
                         className="bg-red-700 text-white p-2 rounded-md"
                       >
                         DROP
@@ -52,6 +97,27 @@ export default function SkillsTable({skillData}) {
                 ))}
               </tbody>
             </table>
+            {showModal && (
+          <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-700">
+            <div className="bg-white p-6 rounded-md shadow-lg">
+              <p>Are you sure you want to drop this skill?</p>
+              <div className="mt-4 flex justify-end">
+                <button
+                  onClick={confirmDrop}
+                  className="mr-2 bg-red-700 text-white p-2 rounded-md"
+                >
+                  Yes
+                </button>
+                <button
+                  onClick={closeModal}
+                  className="bg-gray-300 p-2 rounded-md"
+                >
+                  No
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
           </div>
         </div>
       </div>
