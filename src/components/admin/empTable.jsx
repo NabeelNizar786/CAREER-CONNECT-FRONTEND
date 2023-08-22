@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ConfirmBlockEmp from './confirm/ConfrimBlockEmp';
 
 
 export default function EmpTable({ empData, change }) {
+
+  const [showConfirmation, setShowConfirmation] = useState(false)
+  const [selectedEmp, setSelectedEmp] = useState(null)
+
+  const handleConfrimation = (emp) => {
+    setSelectedEmp(emp)
+    setShowConfirmation(true)
+  }
+
+  const closeConfirmation = () => {
+    setShowConfirmation(false)
+  }
+
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto  ">
@@ -34,11 +48,18 @@ export default function EmpTable({ empData, change }) {
                     <td className="whitespace-nowrap font-bold text-lg px-6 py-4">{emp.companyName}</td>
                     <td className="whitespace-nowrap font-bold text-lg px-6 py-4">{emp.email}</td>
                     <td className="whitespace-nowrap font-bold ">
-                      <button onClick={()=>change(emp._id,emp.status?"false":"true")} className={`${emp.status?"bg-red-700":"bg-green-600"} md:text-lg md:px-3 px-2 md:py-2 text-white rounded-md `}>{emp.status?"block":"UnBlock"}</button>
+                      <button onClick={()=>handleConfrimation(emp)} className={`${emp.status?"bg-red-700":"bg-green-600"} md:text-lg md:px-3 px-2 md:py-2 text-white rounded-md `}>{emp.status?"block":"UnBlock"}</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
+              {showConfirmation && (
+        <ConfirmBlockEmp
+          emp={selectedEmp}
+          change={change}
+          onClose={closeConfirmation}
+        />
+      )}
             </table>
           </div>
         </div>

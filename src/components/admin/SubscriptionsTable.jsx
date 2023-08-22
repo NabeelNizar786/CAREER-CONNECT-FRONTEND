@@ -20,6 +20,12 @@ export default function SubscriptionsTable({ data }) {
                     pack
                   </th>
                   <th scope="col" className="py-3">
+                    amount
+                  </th>
+                  <th scope="col" className="py-3">
+                    paymentBy
+                  </th>
+                  <th scope="col" className="py-3">
                     orderId
                   </th>
                   <th scope="col" className="py-3">
@@ -41,6 +47,12 @@ export default function SubscriptionsTable({ data }) {
                     </td>
                     <td className="whitespace-nowrap first-letter  font-mono md:text-lg md:px-6 px-2 md:py-4">
                       {data.pack}
+                    </td>
+                    <td className="whitespace-nowrap first-letter  font-mono md:text-lg md:px-6 px-2 md:py-4">
+                      {data.amount}
+                    </td>
+                    <td className="whitespace-nowrap first-letter  font-mono md:text-lg md:px-6 px-2 md:py-4">
+                      {data.paymentMethod}
                     </td>
                     <td className="whitespace-nowrap font-bold  md:text-lg md:px-6 px-2 md:py-4">
                       <span className="font-mono"> {data.orderId} </span>
