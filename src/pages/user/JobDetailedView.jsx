@@ -109,7 +109,7 @@ export default function PostDetailedView() {
           </div>
           <div className="md:w-2/6 flex flex-row justify-center  ">
             {postDetails.applicants && Array.isArray(postDetails.applicants) && postDetails.applicants.some(
-              (applicant) => applicant.applicant === userData._id
+              (applicant) => applicant.applicant === userData?._id
             ) ? (
               <div>
                 <button className="font-bold bg-blue-950 text-white md:text-xl rounded-lg flex mx-auto md:p-3 p-1 md:px-3">

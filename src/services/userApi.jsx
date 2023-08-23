@@ -29,11 +29,11 @@ const forgotPassUser = (value) => {
   })
 }
 
-const userGetAllPost = () => {
-  return userAxiosInstence.get('/getAllPost', {
-    withCredentials:true
-  })
-}
+const userGetAllPost = (page, limit ) => {
+  return userAxiosInstence.get(`/getAllPost?page=${page}&limit=${limit}`, {
+    withCredentials: true
+  });
+};
 
 const userGetCityDetails = () => {
   return userAxiosInstence.get("/cityDetails", { withCredentials: true });

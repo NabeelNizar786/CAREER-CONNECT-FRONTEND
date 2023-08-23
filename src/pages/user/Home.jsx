@@ -7,6 +7,7 @@ import NavBar from '../../components/navBar';
 import JobSearch from '../../components/user/JobSearch';
 import JobPost from '../../components/user/userJobPost/JobPost';
 import { userGetAllPost } from '../../services/userApi';
+import ReactPaginate from 'react-paginate';
 
 function Home() {
   const Navigate = useNavigate()
@@ -21,6 +22,7 @@ function Home() {
     skill:[],
   });
 
+  const [totalCount, setTotalCount] = useState(0);
 
 const handleSearch = (e) => {
   e.preventDefault();
@@ -58,6 +60,7 @@ const handleSearch = (e) => {
         dispatch(hideLoading());
         setPosts(res.data.postData);
         setAllPost(res.data.postData);
+        setTotalCount(res.data.totalCount);
         console.log(res.data.postData);
       })
       .catch((err) => {
@@ -65,6 +68,22 @@ const handleSearch = (e) => {
         console.log(err);
       });
   }, []);
+
+  const handlePagination = (data) => {
+    dispatch(showLoading())
+    const limit = 3;
+    let page = data.selected + 1;
+    userGetAllPost(page, limit)
+    .then((res) => {
+      dispatch(hideLoading())
+      setPosts(res.data.postData)
+      setAllPost(res.data.postData)
+    })
+    .catch((err) => {
+      dispatch(hideLoading());
+      console.log(err);
+    });
+  }
 
   const logOut = () => {
     dispatch(showLoading());
@@ -93,6 +112,29 @@ const handleSearch = (e) => {
         </div>
       )}
       {posts.length !== 0 && <JobPost posts={posts} />}
+      </div>
+
+      <ReactPaginate
+        previousLabel={"previous"}
+        nextLabel={"next"}
+        breakLabel={"..."}
+        pageCount={Math.ceil(totalCount / 3)}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={3}
+        onPageChange={handlePagination}
+        containerClassName={"pagination justify-content-center"}
+        pageClassName={"page-item"}
+        pageLinkClassName={"page-link"}
+        previousClassName={"page-item"}
+        previousLinkClassName={"page-link"}
+        nextClassName={"page-item"}
+        nextLinkClassName={"page-link"}
+        breakClassName={"page-item"}
+        breakLinkClassName={"page-link"}
+        activeClassName={"active"}
+      />
+      <div className="mt
+      -4">
       </div>
     </div>
   )
