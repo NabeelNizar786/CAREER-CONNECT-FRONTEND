@@ -1,15 +1,19 @@
 import React from 'react';
 import logo from '../../assets/R.png';
-import { FiHome, FiUser, FiLogOut } from 'react-icons/fi'; // Import icons from react-icons library
-import { useNavigate } from 'react-router-dom';
+import { FiHome, FiUser, FiLogOut, FiArrowLeft } from 'react-icons/fi'; // Import icons from react-icons library
+import { useNavigate,useLocation } from 'react-router-dom';
 
 
 const EmpNavBar = ({ isAuthenticated, logOut }) => { // Receive isAuthenticated as a prop
 
   const Navigate = useNavigate()
+  const Location = useLocation()
+
   const headingStyle = {
     color: 'black',
   };
+
+  const isHomePage = Location.pathname === '/employer/empHome';
 
   return (
     <nav className="bg-blue-200 p-2">
@@ -23,6 +27,14 @@ const EmpNavBar = ({ isAuthenticated, logOut }) => { // Receive isAuthenticated 
         </div>
         {isAuthenticated && ( // Only render the icons if the user is authenticated
           <div className="ml-auto flex items-center">
+            {!isHomePage && (
+            <button
+              onClick={() => Navigate(-1)} // Use the history.goBack() function to navigate back
+              className="mr-8 hover:text-blue-600 cursor-pointer"
+            >
+              <FiArrowLeft size={35} />
+            </button>
+            )}
             <a onClick={() => Navigate('/employer/empHome')} className="mr-8 hover:text-blue-600 cursor-pointer">
               <FiHome size={35} />
             </a>

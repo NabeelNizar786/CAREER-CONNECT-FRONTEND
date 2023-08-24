@@ -11,9 +11,21 @@ export default function EmpProfile() {
   const navigate = useNavigate();
   const empData = useSelector((state) => state.emp.empData);
 
+  const isAuthenticated = true;
+
+  const logOut = () => {
+    dispatch(showLoading());
+    localStorage.removeItem('empJwt');
+    setTimeout(() => {
+      dispatch(hideLoading());
+      Navigate('/employer/empLogin');
+      toast.success('LOGOUT SUCCESSFULLY')
+    }, 1000); // Change the delay time as per your preference
+  };
+
   return (
     <>
-    <EmpNavBar/>
+    <EmpNavBar isAuthenticated={isAuthenticated} logOut={logOut}/>
     <div className="grid lg:grid-cols-4 mt-6 lg:mx-9 mx-4 md:me-2 mb-5" style={{marginTop: '70px'}}>
       <div className="col-span-4 lg:col-span-1">
         <EmpPropic empData={empData} />

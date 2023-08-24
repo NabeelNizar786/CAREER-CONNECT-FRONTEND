@@ -54,7 +54,7 @@ export default function PostDetailedView() {
               <h2>Location: {postDetails.location}</h2>
             </div>
             <div className="font-bold md:text-2xl ps-3 py-1">
-              <h2>CTC : {postDetails.ctc}</h2>
+              <h2>CTC : ₹{postDetails.ctc} LPA</h2>
             </div>
             <div className="font-bold md:text-2xl ps-3 py-1">
               <h2>job type : {postDetails.jobtype}</h2>

@@ -64,6 +64,12 @@ const createPost = (values) => {
   })
 }
 
+const editPost = (value, id) => {
+  return empAxiosInstance.post(`/editPost/${id}`, value, {
+    withCredentials:true
+  });
+};
+
 const empUpdateAbout = (value) => {
   return empAxiosInstance.post('/updateAbout', value, {
     withCredentials: true,
@@ -78,6 +84,18 @@ const empChangeUserImage = (value) => {
 
 const empUpdateBasic = (value) => {
   return empAxiosInstance.post('/updateBasicInfo', value, {
+    withCredentials:true
+  })
+}
+
+const empSearchUser = (value) => {
+  return empAxiosInstance.post('/empSearchUser', value, {
+    withCredentials:true
+  })
+}
+
+const empInviteUser = (value) => {
+  return empAxiosInstance.post('/empInviteUser', value, {
     withCredentials:true
   })
 }
@@ -118,5 +136,8 @@ export{
   changeApplicationStatus,
   getSinglePostData,
   subscription,
-  paymentVerification
+  paymentVerification,
+  editPost,
+  empInviteUser,
+  empSearchUser
 }

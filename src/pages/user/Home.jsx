@@ -133,8 +133,7 @@ const handleSearch = (e) => {
         breakLinkClassName={"page-link"}
         activeClassName={"active"}
       />
-      <div className="mt
-      -4">
+      <div className="mt-4">
       </div>
     </div>
   )

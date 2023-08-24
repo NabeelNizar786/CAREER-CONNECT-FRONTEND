@@ -1,12 +1,16 @@
 import React from 'react';
 import logo from '../assets/R.png';
-import { FiHome, FiUser, FiLogOut } from 'react-icons/fi'; // Import icons from react-icons library
-import { useNavigate } from 'react-router-dom';
+import { FiHome, FiUser, FiLogOut, FiArrowLeft } from 'react-icons/fi'; // Import icons from react-icons library
+import { useNavigate,useLocation } from 'react-router-dom';
 
 
 const NavBar = ({ isAuthenticated, logOut }) => { // Receive isAuthenticated as a prop
 
   const Navigate = useNavigate()
+  const Location = useLocation();
+
+  const isHomePage = Location.pathname === '/user/home';
+
   const headingStyle = {
     color: 'black',
   };
@@ -23,6 +27,13 @@ const NavBar = ({ isAuthenticated, logOut }) => { // Receive isAuthenticated as 
         </div>
         {isAuthenticated && ( // Only render the icons if the user is authenticated
           <div className="ml-auto flex items-center">
+            {!isHomePage && (
+          <button onClick={()=>Navigate(-1)}
+          className="mr-8 hover:text-blue-600 cursor-pointer"
+          >
+            <FiArrowLeft size={35} />
+          </button>
+            )}
             <a onClick={() => Navigate('/user/home')} className="mr-8 hover:text-blue-600 cursor-pointer">
               <FiHome size={35} />
             </a>

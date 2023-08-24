@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getSinglePostData } from "../../services/EmpApi";
 import { showLoading,hideLoading } from "../../redux/alertsSlice";
 import { useDispatch } from "react-redux";
+import EmpNavBar from "../../components/employer/EmpNavbar";
 
 export default function JobApplicants() {
 
@@ -15,6 +16,8 @@ export default function JobApplicants() {
   const [status, setStatus] = useState("Pending");
   const location = useLocation();
   const {postId} = location.state || {};
+
+  const isAuthenticated = true;
 
   useEffect(() => {
     dispatch(showLoading());
@@ -34,10 +37,21 @@ export default function JobApplicants() {
     navigate('/employer/post/FindTalent', {state: {id}});
   };
 
+  const logOut = () => {
+    dispatch(showLoading());
+    localStorage.removeItem('empJwt');
+    setTimeout(() => {
+      dispatch(hideLoading());
+      Navigate('/employer/empLogin');
+      toast.success('LOGOUT SUCCESSFULLY')
+    }, 1000); // Change the delay time as per your preference
+  };
+
   if(postData.length === 0) return null;
 
   return (
     <div>
+      <EmpNavBar isAuthenticated={isAuthenticated} logOut={logOut}/>
       <div className="bg-blue-200 min-h-screen">
         <div className="flex">
           <button

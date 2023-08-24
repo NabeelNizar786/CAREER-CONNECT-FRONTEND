@@ -1,37 +1,36 @@
-import React, {useEffect, useState} from 'react';
-import { toast } from 'react-hot-toast';
-import { getPostData, createPost } from '../../../services/EmpApi';
+import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { getPostData, createPost } from "../../../services/EmpApi";
+import Select from "react-select";
 
-export default function NewJobPost({skills, citys, setPosts}) {
-
+export default function NewJobPost({ skills, citys, setPosts }) {
   const [showModal, setShowModal] = useState(false);
   const [additionalSkills, setAdditionalSkills] = useState([]);
-  const [newSkill, setNewSkill] = useState('');
+  const [newSkill, setNewSkill] = useState("");
 
   const handleAddSkill = () => {
-    if(newSkill.trim() !== '') {
+    if (newSkill.trim() !== "") {
       setAdditionalSkills([...additionalSkills, newSkill.trim()]);
-      setNewSkill('');
+      setNewSkill("");
     }
-  }
+  };
 
   const handleRemoveSkill = (index) => {
     const updatedSkills = [...additionalSkills];
     updatedSkills.splice(index, 1);
     setAdditionalSkills(updatedSkills);
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const jobData = Object.fromEntries(formData.entries());
-    for(const key in jobData) {
+    for (const key in jobData) {
       if (typeof jobData[key] === "string") {
         jobData[key] = jobData[key].trim();
       }
     }
     if (jobData.role === "") {
-
       toast.error("Please enter a job role");
       return;
     }
@@ -75,26 +74,30 @@ export default function NewJobPost({skills, citys, setPosts}) {
       return;
     }
 
-    const selectedSkills = Array.from(
-      document.querySelectorAll('input[name="skills"]:checked')
-    ).map((checkbox) => checkbox.value);
+    // Inside handleSubmit function
+    const selectedSkills = Array.from(formData.getAll("skills"));
     jobData.skills = selectedSkills;
-    jobData.additionalSkills = [...additionalSkills]
 
-    if(jobData.skills.length === 0) {
+    jobData.skills = selectedSkills;
+    jobData.additionalSkills = [...additionalSkills];
+
+    if (jobData.skills.length === 0) {
       toast.error("Please Select Skill");
       return;
     }
 
-    createPost({...jobData}).then((res) => {
-      getPostData().then((res)=> {
-        setPosts(res.data.postData);
-        setAdditionalSkills([]);
-        setNewSkill("");
-      }).catch((err)=>{
-        toast.success("something went worng")
-      })
-    })
+    createPost({ ...jobData }).then((res) => {
+      getPostData()
+        .then((res) => {
+          setPosts(res.data.postData);
+          setAdditionalSkills([]);
+          setNewSkill("");
+          toast.success('JOB POST ADDED SUCCESSFULLY!');
+        })
+        .catch((err) => {
+          toast.success("something went worng");
+        });
+    });
 
     e.target.reset();
     setShowModal(false);
@@ -112,13 +115,13 @@ export default function NewJobPost({skills, citys, setPosts}) {
         </button>
         {showModal ? (
           <>
-            <div className="justify-center pt-20   items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="justify-center pt-20 items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
               <div className="relative md:w-2/6 my-6 mx-auto max-w-3xl">
                 {/*content*/}
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                   {/*header*/}
-                  <div className="flex items-center justify-between pt-36 p-5 border-b border-solid border-slate-200 rounded-t">
-                    <h3 className="text-3xl   font-bold">Create Job Offer</h3>
+                  <div className="flex items-center justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                    <h3 className="text-3xl font-bold text-center mt-8 w-full ml-4">Create Job Offer</h3>
 
                     <button
                       className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -145,7 +148,6 @@ export default function NewJobPost({skills, citys, setPosts}) {
                           name="role"
                           className="mt-1 p-1 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm md:text-lg border-gray-300 rounded-md"
                           placeholder="Enter Job Role"
-                          
                         />
                       </div>
 
@@ -200,7 +202,6 @@ export default function NewJobPost({skills, citys, setPosts}) {
                           name="ctc"
                           className="mt-1 p-1 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm md:text-lg border-gray-300 rounded-md"
                           placeholder="Enter the ctc"
-                          
                         />
                       </div>
                       <div className="mb-2">
@@ -216,7 +217,6 @@ export default function NewJobPost({skills, citys, setPosts}) {
                           name="exp"
                           className="mt-1 p-1 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm md:text-lg border-gray-300 rounded-md"
                           placeholder="Enter the minimum expireance"
-                          
                         />
                       </div>
                       <div className="mb-2">
@@ -232,7 +232,6 @@ export default function NewJobPost({skills, citys, setPosts}) {
                           name="vacancy"
                           className="mt-1 p-1 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm md:text-lg border-gray-300 rounded-md"
                           placeholder="Enter the minimum expireance"
-                          
                         />
                       </div>
                       <div className="mb-2">
@@ -248,7 +247,6 @@ export default function NewJobPost({skills, citys, setPosts}) {
                           className="mt-1 p-1 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm md:text-lg border-gray-300 rounded-md"
                           placeholder="Enter the job description"
                           rows="3" // Adjust the number of rows as needed
-                          
                         ></textarea>
                       </div>
                       <div className="mb-2">
@@ -258,70 +256,63 @@ export default function NewJobPost({skills, citys, setPosts}) {
                         >
                           Required Skills
                         </label>
-                        <div className="flex flex-wrap">
-                          {skills.map((skill, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center mr-4 mb-2"
-                            >
-                              <input
-                                type="checkbox"
-                                name="skills"
-                                value={skill.skill}
-                                className="mr-1"
-                              />
-                              <label htmlFor={`skill${index + 1}`}>
-                                {skill.skill}
-                              </label>
-                            </div>
-                          ))}
+                        <div>
+                          <Select
+                            id="skills"
+                            name="skills"
+                            options={skills.map((skill) => ({
+                              value: skill.skill,
+                              label: skill.skill,
+                            }))}
+                            placeholder="Choose a skill"
+                            isMulti
+                          />
                         </div>
                       </div>
 
                       <div className="mb-2">
-                <label
-                  htmlFor="additionalSkills"
-                  className="block text-xl font-bold text-gray-900"
-                >
-                  Additional Skills
-                </label>
-                <div className="flex items-center">
-                  <input
-                    type="text"
-                    id="additionalSkills"
-                    name="additionalSkills"
-                    value={newSkill}
-                    onChange={(e) => setNewSkill(e.target.value)}
-                    className="mt-1 p-1 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm md:text-lg border-gray-300 rounded-md"
-                    placeholder="Enter additional skills"
-                  />
-                  <button
-                    type="button"
-                    className="ml-2 bg-emerald-500 text-white font-bold px-3 py-2 rounded shadow hover:shadow-lg"
-                    onClick={handleAddSkill}
-                  >
-                    Add
-                  </button>
-                </div>
-                <div className="mt-2 flex flex-wrap">
-                  {additionalSkills.map((skill, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center mr-2 mb-2 bg-gray-100 p-1 rounded"
-                    >
-                      <span className="mr-1">{skill}</span>
-                      <button
-                        type="button"
-                        className="text-red-500 font-bold"
-                        onClick={() => handleRemoveSkill(index)}
-                      >
-                        x
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
+                        <label
+                          htmlFor="additionalSkills"
+                          className="block text-xl font-bold text-gray-900"
+                        >
+                          Additional Skills
+                        </label>
+                        <div className="flex items-center">
+                          <input
+                            type="text"
+                            id="additionalSkills"
+                            name="additionalSkills"
+                            value={newSkill}
+                            onChange={(e) => setNewSkill(e.target.value)}
+                            className="mt-1 p-1 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm md:text-lg border-gray-300 rounded-md"
+                            placeholder="Enter additional skills"
+                          />
+                          <button
+                            type="button"
+                            className="ml-2 bg-emerald-500 text-white font-bold px-3 py-2 rounded shadow hover:shadow-lg"
+                            onClick={handleAddSkill}
+                          >
+                            Add
+                          </button>
+                        </div>
+                        <div className="mt-2 flex flex-wrap">
+                          {additionalSkills.map((skill, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center mr-2 mb-2 bg-gray-100 p-1 rounded"
+                            >
+                              <span className="mr-1">{skill}</span>
+                              <button
+                                type="button"
+                                className="text-red-500 font-bold"
+                                onClick={() => handleRemoveSkill(index)}
+                              >
+                                x
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
 
                       {/*footer*/}
                       <div className="flex items-center justify-end p-2 border-t border-solid border-slate-200 rounded-b">
