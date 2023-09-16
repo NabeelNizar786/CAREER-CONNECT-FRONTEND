@@ -46,12 +46,12 @@ function EmployerLogin() {
                     dispatch(hideLoading());
                     toast.success(res.data.message);
                       localStorage.setItem('empJwt', res.data.token);
+                      dispatch(updateEmpDetails(res.data.empData))
                       navigate('/employer/empHome');
 
                   })
                   .catch((error) => {
                     dispatch(hideLoading());
-                    dispatch(updateEmpDetails(res.data.empData))
                     console.log(error.message);
                     toast.error(error.response.data.message);
                   });

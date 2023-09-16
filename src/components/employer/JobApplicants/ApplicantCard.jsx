@@ -7,6 +7,9 @@ import { changeApplicationStatus } from "../../../services/EmpApi";
 import {showLoading, hideLoading} from '../../../redux/alertsSlice';
 import { useDispatch } from "react-redux";
 import {toast} from 'react-hot-toast';
+import {
+  empCreateChat,
+} from "../../../services/EmpApi";
 import { useNavigate } from "react-router-dom";
 
 
@@ -67,6 +70,21 @@ export default function ApplicantCard({postData, status, set}) {
       toast.error("something went wrong");
     });
   }
+
+  const newChat = (senderId, receiverId) => {
+    empCreateChat({ senderId: senderId, receiverId: receiverId })
+      .then((res) => {
+        console.log(res.data);
+        let data = res.data.chatData;
+        console.log(data, "data avunindo");
+        navigate("/employer/message", { state: { data } });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("something wend wrong");
+      });
+  };
+
 
   return (
     <>

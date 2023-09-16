@@ -4,6 +4,7 @@ import { skillData } from '../../../services/EmpApi';
 export default function EmpSearchUser({set}) {
 
   const [skills, setSkills] = useState([]);
+  const [selectedSkill, setSelectedSkill] = useState('');
 
   useEffect(() => {
     skillData()
@@ -15,20 +16,27 @@ export default function EmpSearchUser({set}) {
     })
   }, []);
 
+  const handleSkillChange = (e) => {
+    setSelectedSkill(e.target.value);
+  };
+
+  const handleSearch = () => {
+    // Pass the selected skill to the parent component for search
+    set(selectedSkill);
+  };
+
   return (
-    <div className="w-screen">
-      <div>
-        <h1 className="font-bold font-serif text-xl md:text-3xl ms-7 md:ms-24 lg:text-5xl mt-14">
+    <div className="w-screen bg-gradient-to-r from-blue-500 to-purple-500 text-white py-16">
+      <div className="container mx-auto text-center">
+        <h1 className="font-bold font-montserrat text-3xl md:text-5xl lg:text-6xl">
           Discover Top Tech Talent for Your Company
         </h1>
-      </div>
-      <form>
-        <div className="font-semibold grid-cols-2 flex flex-row flex-wrap items-center m-6 md:ms-24">
-          <div className="w-full md:w-4/6 mb-3 md:mb-0">
+        <form className="mt-8 flex flex-col md:flex-row justify-center items-center">
+          <div className="w-full md:w-3/5 mb-4 md:mb-0 md:mr-4">
             <select
               id="skill"
-              onChange={(e) => set(e.target.value)}
-              className="bg-white shadow-lg border border-gray-300 text-gray-950 text-lg rounded-lg w-full lg:ms-2 p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+              onChange= {handleSkillChange}
+              className="bg-white shadow-lg border border-gray-300 text-gray-800 text-lg rounded-lg w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
             >
               <option value="">Choose a skill</option>
               {skills.map((skill, i) => (
@@ -38,16 +46,17 @@ export default function EmpSearchUser({set}) {
               ))}
             </select>
           </div>
-          <div className="w-full md:w-1/6">
+          <div className="w-full md:w-2/5">
             <button
               type="button"
-              className="bg-blue-950 rounded-md text-white w-full text-lg p-3 lg:ms-5 font-bold"
+              onClick={handleSearch}
+              className="bg-blue-600 hover:bg-blue-700 rounded-lg text-white w-full text-lg p-3 mb-4 font-semibold transition duration-300 ease-in-out transform hover:scale-105"
             >
               SEARCH
             </button>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
-  );
+  );  
 }

@@ -10,6 +10,10 @@ import Profile from '../pages/user/Profile';
 import { useNavigate } from "react-router-dom";
 import PublicRoute from "../protectedRoutes/PublicRoutes";
 import NotFoundPage from "../pages/NotFoundPage";
+import UserChat from "../pages/user/userChat";
+import UserEmpProfileview from "../pages/user/UserEmpProfileview";
+import Invites from "../pages/user/Invites";
+import JobRequests from "../pages/user/JobRequests";
 
 export default function UserRoutes() {
   
@@ -22,7 +26,11 @@ export default function UserRoutes() {
       <Route element={<PrivateRoutes role={"user"} route={'/user/login'}/>}>
         <Route path="/home" element={<Home/>}/>
         <Route path="/jobDetailedView" element={<JobDetailedView/>}/>
+        <Route path="/employer/profile" element={<UserEmpProfileview />} />
         <Route path="/profile" element={<Profile/>}/>
+        <Route path="/invites" element={<Invites />} />
+        <Route path="/jobrequests" element={<JobRequests />} />
+        <Route path="/userChat" element={<UserChat />} />
       </Route>
     </Routes>
   )

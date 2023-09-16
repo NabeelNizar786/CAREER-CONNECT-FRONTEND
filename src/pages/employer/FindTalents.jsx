@@ -7,6 +7,7 @@ import { toast } from 'react-hot-toast';
 import { getSinglePostData } from '../../services/EmpApi';
 import { showLoading,hideLoading } from '../../redux/alertsSlice';
 import { useDispatch } from 'react-redux';
+import EmpNavBar from '../../components/employer/EmpNavbar';
 
 export default function FindTalent() {
   const dispatch = useDispatch();
@@ -18,9 +19,14 @@ export default function FindTalent() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    empSearchUser({ skill })
+    
+    dispatch(showLoading());
+    empSearchUser( skill )
       .then((res) => {
         setUserData(res.data.userData);
+        setTimeout(() => {
+          dispatch(hideLoading());
+        }, 1000);
       })
       .catch((err) => console.log(err));
   }, [skill]);
@@ -40,12 +46,25 @@ export default function FindTalent() {
       });
   }, []);
 
+  const isAuthenticated = true;
+
+  const logOut = () => {
+    dispatch(showLoading());
+    localStorage.removeItem('empJwt');
+    setTimeout(() => {
+      dispatch(hideLoading());
+      Navigate('/employer/empLogin');
+      toast.success('LOGOUT SUCCESSFULLY')
+    }, 1000); // Change the delay time as per your preference
+  };
+
   if (isLoading) {
     return;
   }
 
   return(
     <>
+    <EmpNavBar isAuthenticated={isAuthenticated} logOut = {logOut}/>
       <div>
         <EmpSearchUser set={setSkill} />
       </div>

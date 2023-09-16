@@ -9,6 +9,7 @@ import Requests from "../pages/admin/requests";
 import City from "../pages/admin/City";
 import Skills from "../pages/admin/Skills";
 import Subscriptions from "../pages/admin/Subscriptions";
+import NotFoundPage from "../pages/NotFoundPage";
 
 
 
@@ -16,6 +17,7 @@ function AdminRoutes() {
   return (
     <Routes>
 
+<Route path="*" element={<NotFoundPage />} />
       <Route path="/adminLogin" element={<AdminLogin/>}/>
       <Route element={<PrivateRoutes role={"admin"} route={'/admin/adminLogin'}/>}>
         <Route path="/adminHome" element={<AdminHome/>}/>

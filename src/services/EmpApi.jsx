@@ -52,6 +52,12 @@ const getPostData = () => {
   })
 }
 
+const getUserData = (userId) => {
+  return empAxiosInstance.get(`/getuserdata/${userId}`, {
+    withCredentials: true,
+  });
+};
+
 const getSinglePostData = (postId) => {
   return empAxiosInstance.get(`/getSinglePostData/${postId}`, {
     withCredentials:true
@@ -88,11 +94,11 @@ const empUpdateBasic = (value) => {
   })
 }
 
-const empSearchUser = (value) => {
-  return empAxiosInstance.post('/empSearchUser', value, {
-    withCredentials:true
-  })
-}
+const empSearchUser = (skill) => {
+  return empAxiosInstance.get(`/empSearchUser?skill=${skill}`, {
+    withCredentials: true,
+  });
+};
 
 const empInviteUser = (value) => {
   return empAxiosInstance.post('/empInviteUser', value, {
@@ -106,6 +112,21 @@ const changeApplicationStatus = (postId, applicationId, newStatus, userId) => {
     {withCredentials:true}
   )
 }
+
+const empChats = (userId) => {
+  return empAxiosInstance.get(`getChat/${userId}`, { withCredentials: true });
+};
+const empGetMessages = (chatid) => {
+  return empAxiosInstance.get(`getMessages/${chatid}`, {
+    withCredentials: true,
+  });
+};
+const empSendMessage = (value) => {
+  return empAxiosInstance.post("/addMessage", value, { withCredentials: true });
+};
+const empCreateChat = (value) => {
+  return empAxiosInstance.post("/createChat", value, { withCredentials: true });
+};
 
 const subscription = () => {
   return empAxiosInstance.post('/subscription', {
@@ -139,5 +160,10 @@ export{
   paymentVerification,
   editPost,
   empInviteUser,
-  empSearchUser
+  empSearchUser,
+  empChats,
+  empGetMessages,
+  empSendMessage,
+  empCreateChat,
+  getUserData
 }

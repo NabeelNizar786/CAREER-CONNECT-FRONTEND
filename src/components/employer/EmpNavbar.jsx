@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../../assets/R.png';
-import { FiHome, FiUser, FiLogOut, FiArrowLeft } from 'react-icons/fi'; // Import icons from react-icons library
+import { FiHome, FiUser, FiLogOut, FiArrowLeft,FiInbox } from 'react-icons/fi'; // Import icons from react-icons library
 import { useNavigate,useLocation } from 'react-router-dom';
 
 
@@ -40,6 +40,9 @@ const EmpNavBar = ({ isAuthenticated, logOut }) => { // Receive isAuthenticated 
             </a>
             <a onClick={() => Navigate('/employer/empProfile')} className="mr-8 hover:text-blue-600 cursor-pointer">
               <FiUser size={35} />
+            </a>
+            <a onClick={() => Navigate('/employer/message')} className="mr-8 hover:text-blue-600 cursor-pointer">
+              <FiInbox size={35} />
             </a>
             <a onClick={logOut} className='hover:text-blue-600 cursor-pointer' >
               <FiLogOut size={35} />

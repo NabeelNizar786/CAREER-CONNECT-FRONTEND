@@ -42,6 +42,18 @@ const userGetSkillsData = () => {
   return userAxiosInstence.get("/skillData", { withCredentials: true });
 };
 
+const userGetEmpDetails = (empId) => {
+  return userAxiosInstence.post(`/userGetEmpDetails/${empId}`, {
+    withCredentials: true,
+  });
+};
+
+const getUserApplications = (status) => {
+  return userAxiosInstence.get(`/getUserApplications/${status}`, {
+    withCredentials: true,
+  });
+};
+
 const jobDetailedView = (id) => {
   return userAxiosInstence.get(`/jobDetailedView/${id}`, {
     withCredentials:true
@@ -109,6 +121,24 @@ const changeUserPassword = (data) => {
   });
 };
 
+const invitedJobs = () => {
+  return userAxiosInstence.get("/invitedjobs", { withCredentials: true });
+};
+
+const userChats = (userId) => {
+  return userAxiosInstence.get(`getChat/${userId}`, { withCredentials: true });
+};
+const userGetMessages = (chatid) => {
+  return userAxiosInstence.get(`getMessages/${chatid}`, {
+    withCredentials: true,
+  });
+};
+const userSendMessage = (value) => {
+  return userAxiosInstence.post("/addMessage", value, {
+    withCredentials: true,
+  });
+};
+
 
 export{
   userLogin,
@@ -131,4 +161,10 @@ export{
   addUserSkill,
   dropUserSkill,
   changeUserPassword,
+  userChats,
+  userGetMessages,
+  userSendMessage,
+  userGetEmpDetails,
+  invitedJobs,
+  getUserApplications
 };

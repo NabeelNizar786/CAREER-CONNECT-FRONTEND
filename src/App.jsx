@@ -9,6 +9,8 @@ import EmployerRoutes from './routes/empRoute';
 import {ErrorBoundary} from 'react-error-boundary';
 import ErrorMessage from "./pages/ErrorMessage";
 import NotFoundPage from "./pages/NotFoundPage";
+import VideoCall from './pages/VideoCall';
+import PrivateRoutes from "./protectedRoutes/privateRoutes";
 
 function App() {
   const {loading} = useSelector((state) => state.alerts);
@@ -28,6 +30,7 @@ function App() {
       <Route path="/admin/*" element={<AdminRoutes/>}/>
       <Route path="/user/*" element={<UserRoutes/>}/>
       <Route path="/employer/*" element={<EmployerRoutes/>}/>
+      <Route path="/meeting" element={<VideoCall/>}/>
     </Routes>
     </ErrorBoundary>
     </BrowserRouter>
