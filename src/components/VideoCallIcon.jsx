@@ -14,7 +14,8 @@ function VideoCallIcon() {
     return (
         <div className="video-call-icon">
             <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold ml-6 py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-blue-300"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold ml-6
+                 py-2 px-4 rounded-full focus:outline-none focus:ring focus:ring-blue-300"
                 onClick={VideoMeet}
             >
                 <span className="flex items-center">

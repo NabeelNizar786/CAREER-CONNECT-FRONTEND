@@ -144,7 +144,7 @@ const LandingPage = () => {
               <p className="text-gray-600 text-center">
                 Click here to explore job opportunities and find your dream job.
               </p>
-              <Link to='/login' className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4">
+              <Link to='user/login' className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4">
                 CLICK HERE
               </Link>
             </div>
