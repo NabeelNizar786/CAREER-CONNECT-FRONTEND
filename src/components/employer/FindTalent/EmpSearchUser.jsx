@@ -1,19 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import { skillData } from '../../../services/EmpApi';
+import React, { useEffect, useState } from "react";
+import { skillData } from "../../../services/EmpApi";
 
-export default function EmpSearchUser({set}) {
-
+export default function EmpSearchUser({ set }) {
   const [skills, setSkills] = useState([]);
-  const [selectedSkill, setSelectedSkill] = useState('');
+  const [selectedSkill, setSelectedSkill] = useState("");
 
   useEffect(() => {
     skillData()
-    .then((res) => {
-      setSkills(res.data.skillData)
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+      .then((res) => {
+        setSkills(res.data.skillData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   const handleSkillChange = (e) => {
@@ -33,18 +32,13 @@ export default function EmpSearchUser({set}) {
         </h1>
         <form className="mt-8 flex flex-col md:flex-row justify-center items-center">
           <div className="w-full md:w-3/5 mb-4 md:mb-0 md:mr-4">
-            <select
+            <input
+              type="text"
               id="skill"
-              onChange= {handleSkillChange}
+              onChange={handleSkillChange}
               className="bg-white shadow-lg border border-gray-300 text-gray-800 text-lg rounded-lg w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-            >
-              <option value="">Choose a skill</option>
-              {skills.map((skill, i) => (
-                <option key={i} value={skill.skill}>
-                  {skill.skill}
-                </option>
-              ))}
-            </select>
+              placeholder="Enter a skill"
+            />
           </div>
           <div className="w-full md:w-2/5">
             <button
@@ -58,5 +52,5 @@ export default function EmpSearchUser({set}) {
         </form>
       </div>
     </div>
-  );  
+  );
 }

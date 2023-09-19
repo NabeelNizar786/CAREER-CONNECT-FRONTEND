@@ -40,8 +40,8 @@ const cityData = () => {
   })
 }
 
-const getActivePostData = () => {
-  return empAxiosInstance.get('/getActivePostData', {
+const getActivePostData = (page, limit) => {
+  return empAxiosInstance.get(`/getActivePostData?page=${page}&limit=${limit}`, {
     withCredentials:true
   })
 }
@@ -75,6 +75,17 @@ const editPost = (value, id) => {
     withCredentials:true
   });
 };
+
+const deletePost = (value) => {
+  return empAxiosInstance.post("/deletePost", value, { withCredentials: true });
+};
+
+const completePost = (value) => {
+  return empAxiosInstance.post("/completePost", value, {
+    withCredentials: true,
+  });
+};
+
 
 const empUpdateAbout = (value) => {
   return empAxiosInstance.post('/updateAbout', value, {
@@ -165,5 +176,7 @@ export{
   empGetMessages,
   empSendMessage,
   empCreateChat,
-  getUserData
+  getUserData,
+  deletePost,
+  completePost
 }

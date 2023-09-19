@@ -1,6 +1,12 @@
 import React ,{useState}from "react";
 import { useNavigate } from "react-router-dom";
 import EditJob from './EditJob';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { deletePost,completePost } from "../../../services/EmpApi";
+import toast from "react-hot-toast";
+import CompleteModal from "../../confirmationModal/CompleteModal";
+import DeleteModal from "../../confirmationModal/DeleteModal";
 
 export default function EmpPosts({posts, skills,citys, setPosts}) {
 
@@ -80,6 +86,8 @@ export default function EmpPosts({posts, skills,citys, setPosts}) {
                     citys={citys}
                     setPosts={setPosts}
                   />
+                  <CompleteModal setPosts={setPosts} postId={post._id} />
+                  <DeleteModal setPosts={setPosts} postId={post._id}/>
                 </div>
               </div>
             </div>

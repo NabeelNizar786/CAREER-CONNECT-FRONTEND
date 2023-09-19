@@ -140,6 +140,7 @@ const userSendMessage = (value) => {
 };
 
 
+
 export{
   userLogin,
   userSignup,
@@ -166,5 +167,5 @@ export{
   userSendMessage,
   userGetEmpDetails,
   invitedJobs,
-  getUserApplications
+  getUserApplications,
 };

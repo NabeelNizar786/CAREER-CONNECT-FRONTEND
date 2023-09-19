@@ -17,6 +17,12 @@ function EmployerLogin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (localStorage.getItem("empJwt")) {
+      navigate("/employer/empHome");
+    }
+  });
+
   const [user, setUser] = useState([]);
 
   const login = useGoogleLogin({

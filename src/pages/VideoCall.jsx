@@ -2,6 +2,8 @@ import * as React from 'react';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import { APP_ID, SERVER_SECRET } from '../constants/constants';
 import NavBar from '../components/navBar';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 function randomID(len) {
   let result = '';
@@ -24,6 +26,36 @@ export function getUrlParams(
 }
 
 export default function App() {
+
+  const roomPass = "1234";
+
+  const [password, setPassword] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+
+    setIsModalOpen(false);
+  };
+
+  const handlePasswordSubmit = (enteredPassword) => {
+    // Store the enteredPassword in your state or perform any required actions
+    // For example:
+    if(enteredPassword === roomPass) {
+      closeModal();
+    } else {
+      toast.error("INCORRECT ROOM PASSWORD")
+    }
+  };
+  
+
   const roomID = "Careerconnect"
   let myMeeting = async (element) => {
 
@@ -57,12 +89,37 @@ export default function App() {
 
   return (
     <>
-    <NavBar isAuthenticated={isAuthenticated}/>
-    <div
-      className="myCallContainer"
-      ref={myMeeting}
-      style={{ width: '100vw', height: '100vh' }}
-    ></div>
+      <NavBar isAuthenticated={isAuthenticated} />
+      {isModalOpen ? (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white w-96 p-4 rounded-lg shadow-lg">
+            <h2 className="text-lg font-semibold mb-2">Enter Room Password</h2>
+            <input
+              className="w-full px-3 py-2 border rounded-md mb-2"
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="Password"
+            />
+            <div className="flex justify-end">
+              <button
+                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
+                onClick={() => handlePasswordSubmit(password)}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div
+          className="myCallContainer"
+          ref={myMeeting}
+          style={{ width: '100vw', height: '100vh' }}
+        ></div>
+      )}
     </>
   );
+  
+  
 }

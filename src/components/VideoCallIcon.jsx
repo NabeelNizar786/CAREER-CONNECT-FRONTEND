@@ -8,7 +8,7 @@ function VideoCallIcon() {
     const navigate = useNavigate();
 
     const VideoMeet = () => {
-        navigate('/meeting');
+        window.open('/meeting', '_blank');
     }
 
     return (

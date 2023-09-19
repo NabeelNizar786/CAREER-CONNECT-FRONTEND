@@ -17,7 +17,7 @@ export default function Messages({
   const scroll = useRef();
 
   useEffect(() => {
-    if (receiveMessage !== null && receiveMessage.chatId === chat._id) {
+    if (receiveMessage !== null && receiveMessage.chatId === chat?._id) {
       setMessages([...messages, receiveMessage]);
     }
   }, [receiveMessage]);
@@ -91,6 +91,14 @@ export default function Messages({
                   <div className="flex justify-end mb-4 ">
                     <div className="mr-2 py-3 px-4  bg-blue-900 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">
                       {msg.text}
+                      <div className="text-right ">
+                        <small className="text-xs text-gray-400">
+                          {new Date(msg?.createdAt).toLocaleString("en-US", {
+                            dateStyle: "short",
+                            timeStyle: "short",
+                          })}
+                        </small>
+                      </div>
                     </div>
                     <img
                       src={empData?.image ? empData.image : img}
@@ -107,6 +115,14 @@ export default function Messages({
                     />
                     <div className="ml-2 py-3 px-4 bg-gray-700 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white">
                       {msg.text}
+                      <div>
+                      <small className="text-xs text-gray-400">
+                      {new Date(msg?.createdAt).toLocaleString("en-US", {
+                            dateStyle: "short",
+                            timeStyle: "short",
+                          })}
+                    </small>
+                    </div>
                     </div>
                   </div>
                 )}

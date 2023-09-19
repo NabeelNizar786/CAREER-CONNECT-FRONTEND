@@ -13,6 +13,7 @@ function Home() {
   const Navigate = useNavigate()
   const dispatch = useDispatch()
 
+
   const isAuthenticated = true;
 
   const [posts, setPosts] = useState([]);

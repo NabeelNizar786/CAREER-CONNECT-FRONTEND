@@ -67,6 +67,24 @@ const isAdminAuth = () => {
   {withCredentials:true});
 };
 
+const userCount = () => {
+  return adminAxiosInstence.get("/usercount", { withCredentials: true });
+};
+const revenue = () => {
+  return adminAxiosInstence.get("/revenue", { withCredentials: true });
+};
+const empCount = () => {
+  return adminAxiosInstence.get("/empcount", { withCredentials: true });
+};
+
+const postsByDate = () => {
+  return adminAxiosInstence.get('/postsByDate', { withCredentials: true })
+}
+
+const empJoinCountDates = () => {
+  return adminAxiosInstence.get('/countByDate', { withCredentials: true })
+}
+
 const changeUserStatus = (value) => {
   return adminAxiosInstence.post('/changeUserStatus', value, {
     withCredentials:true
@@ -100,5 +118,10 @@ export {
   changeEmpStatus,
   getSubscriptionDetails,
   adminDropCity,
-  adminDropSkill
+  adminDropSkill,
+  userCount,
+  revenue,
+  empCount,
+  postsByDate,
+  empJoinCountDates
 };

@@ -5,6 +5,7 @@ import EmpPropic from '../../components/employer/profile/EmpPropic';
 import EmpBasicInfo from '../../components/employer/profile/EmpBasicInfo';
 import { useNavigate } from 'react-router-dom';
 import EmpNavBar from '../../components/employer/EmpNavbar';
+import VideoCallIcon from '../../components/VideoCallIcon';
 
 export default function EmpProfile() {
 
@@ -45,6 +46,13 @@ export default function EmpProfile() {
             </button>
           </div>
         )}
+        <div className="bg-sky-700 text-white p-3 rounded-xl md:mx-8 flex mb-3 border border-gray-500 cursor-pointer hover:bg-sky-800 shadow-md ">
+            <button
+              className="text-xl  mx-auto font-bold uppercase "
+            >
+              <VideoCallIcon/>
+            </button>
+          </div>
       </div>
 
       <div className="lg:col-span-3 col-span-4 lg:me-20">

@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {HiOutlineUserCircle} from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -14,8 +14,15 @@ const AdminLogin = () => {
     password:""
   })
 
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (localStorage.getItem("adminJwt")) {
+      navigate("/admin/adminHome");
+    }
+  });
 
   const handleSubmit = async(e) => {
     e.preventDefault();

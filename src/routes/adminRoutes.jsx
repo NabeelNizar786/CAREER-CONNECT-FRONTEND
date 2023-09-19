@@ -10,6 +10,7 @@ import City from "../pages/admin/City";
 import Skills from "../pages/admin/Skills";
 import Subscriptions from "../pages/admin/Subscriptions";
 import NotFoundPage from "../pages/NotFoundPage";
+import PublicRoute from "../protectedRoutes/PublicRoutes";
 
 
 

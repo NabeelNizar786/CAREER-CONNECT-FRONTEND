@@ -13,6 +13,8 @@ import FindTalent from '../pages/employer/FindTalents';
 import EmpChat from '../pages/employer/EmpChats';
 import UserProfileView from '../pages/employer/UserProfileView';
 import NotFoundPage from '../pages/NotFoundPage';
+import AllPost from '../pages/employer/AllPost';
+import VideoCall from '../pages/VideoCall';
 
 export default function empRoute() {
   return (
@@ -26,10 +28,12 @@ export default function empRoute() {
         <Route path='/empProfile' element={<EmployerProfile/>}/>
         <Route path='/jobApplicants' element={<JobApplicants/>}/>
         <Route path="/applicants/profile" element={<UserProfileView />} />
+        <Route path="/allposts" element={<AllPost />} />
         <Route path='/subscription' element={<PremiumPlan/>}/>
         <Route path='/paymentSuccess/:empId' element={<PaymentSuccess/>}/>
         <Route path='/post/FindTalent' element={<FindTalent/>}/>
         <Route path="/message" element={<EmpChat/>} />
+        {/* <Route path="/empMeeting" element={<VideoCall/>}/> */}
       </Route>
     </Routes>
   )

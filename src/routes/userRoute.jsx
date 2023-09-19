@@ -14,6 +14,7 @@ import UserChat from "../pages/user/userChat";
 import UserEmpProfileview from "../pages/user/UserEmpProfileview";
 import Invites from "../pages/user/Invites";
 import JobRequests from "../pages/user/JobRequests";
+import VideoCall from '../pages/VideoCall';
 
 export default function UserRoutes() {
   
@@ -31,6 +32,7 @@ export default function UserRoutes() {
         <Route path="/invites" element={<Invites />} />
         <Route path="/jobrequests" element={<JobRequests />} />
         <Route path="/userChat" element={<UserChat />} />
+        {/* <Route path="/userMeeting" element={<VideoCall/>}/> */}
       </Route>
     </Routes>
   )

@@ -14,6 +14,14 @@ export default function ApplyJobModal({id,set}) {
   const handleFormSubmit = async(event) => {
     event.preventDefault();
 
+    const selectedFile = resume;
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+
+    if (!allowedTypes.includes(selectedFile?.type)) {
+      toast.error('ONLY JPEG/PNG FORMAT IS SUPPORTED !')
+      return;
+    }
+
     try {
       const formData = new FormData();
       formData.append('coverLetter', coverLetter);
