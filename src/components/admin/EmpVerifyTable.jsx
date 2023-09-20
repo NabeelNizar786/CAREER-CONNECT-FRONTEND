@@ -17,7 +17,13 @@ export default function EmpVerifyTable({ empData, verify }) {
 
   return (
     <div className="flex flex-col">
-      <div className="overflow-x-auto">
+      {empData.length === 0 ? (
+        <p className="text-center text-4xl mt-8 text-gray-500">
+        <span className="block text-6xl">&#128533;</span>
+        No employer requests.
+      </p>
+      ) : (
+        <div className="overflow-x-auto">
         <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
           <div className="overflow-hidden m-2 border shadow-md">
             <table className="min-w-full text-center text-sm font-light">
@@ -62,6 +68,7 @@ export default function EmpVerifyTable({ empData, verify }) {
           </div>
         </div>
       </div>
+      )}
 
       {isModalOpen && selectedEmp && (
   <div className="fixed inset-0 flex items-center justify-center z-50">

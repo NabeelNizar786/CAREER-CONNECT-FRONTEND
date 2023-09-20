@@ -97,7 +97,7 @@ const EmployerRegister = () => {
 
   return (
     <>
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-blue-200">
     {clicked? (
       <div className="max-w-md w-full p-6 bg-white shadow-lg rounded-lg">
         <div id="recaptcha-container"></div>
@@ -172,39 +172,37 @@ const EmployerRegister = () => {
       </div>
 
   ):(
-    <>
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm mt-32">
-        <h1 className="font-sans text-center font-black text-indigo-500 text-3xl">
-          CAREER CONNECT || SIGNUP
-        </h1>
-        <p className="text-sm font-semibold text-center"></p>
-      </div>
-
-      <div className="relative mt-10 w-80">
-        <p className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
-          OTP
-        </p>
-        <input
-          placeholder="123456"
-          value={otpValue}
-          onChange={(e) => setOtpValue(e.target.value)}
-          name="otp"
-          type="text"
-          className="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-10 text-base block bg-white border-gray-300 rounded-md"
-        />
-
-        <div className="relative mt-2">
-          <button
-            className="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg transition duration-200 hover:bg-indigo-600 ease hover:cursor-pointer"
-            onClick={otpVerify}
-          >
-            Signup
-          </button>
-        </div>
+  <div className='bg-blue-400 py-8 px-8'>
+    <div className='bg-blue-100 py-8 px-8 rounded'>
+    <div className="text-center">
+    <h1 className="text-4xl font-bold text-black-500 mb-4">CAREER CONNECT || SIGNUP</h1>
+    <div className="relative mt-10">
+      <label
+        htmlFor="otp"
+        className="block text-2xl font-semibold mb-2 text-gray-600"
+      >
+        OTP
+      </label>
+      <input
+        placeholder="123456"
+        value={otpValue}
+        onChange={(e) => setOtpValue(e.target.value)}
+        name="otp"
+        type="text"
+        className="w-64 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-black text-lg"
+      />
+      <div className="mt-4">
+        <button
+          className="w-64 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none text-lg"
+          onClick={otpVerify}
+        >
+          Signup
+        </button>
       </div>
     </div>
-                </>
+  </div>
+  </div>
+  </div>
               )}
             </div>
       </>

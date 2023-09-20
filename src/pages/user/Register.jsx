@@ -89,127 +89,134 @@ const Register = () => {
   }
 
   return (
-    <>
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      {clicked? (
-      <div className="max-w-md w-full p-6 bg-white shadow-lg rounded-lg">
-        <div id="recaptcha-container"></div>
-        <h2 className="text-2xl font-bold text-center mb-6">USER REGISTER</h2>
-        <form onSubmit={sendOtp}>
-        <div className="mb-6">
-            <label htmlFor="username" className="block font-bold mb-2">
-              USERNAME:
-            </label>
-            <input
-              type="text"
-              name='username'
-              id="username"
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-              onChange={(e) => setValues({...values, [e.target.name]: e.target.value})}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="block font-bold mb-2">
-              EMAIL:
-            </label>
-            <input
-              type="email"
-              id="email"
-              name='email'
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-              onChange={(e) => setValues({...values, [e.target.name]: e.target.value})}
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="mobilenumber" className="block font-bold mb-2">
-              MOBILE NUMBER:
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-              onChange={(e) => setValues({...values, [e.target.name]: e.target.value})}
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="block font-bold mb-2">
-              PASSWORD:
-            </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-              onChange={(e) => setValues({...values, [e.target.name]: e.target.value})}
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="block font-bold mb-2">
-              CONFIRM PASSWORD:
-            </label>
-            <input
-              type="password"
-              name="confirmPassword"
-              id="password"
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-              onChange={(e) => setValues({...values, [e.target.name]: e.target.value})}
-              required
-            />
-          </div>
-          <div className="flex justify-center">
-            <button
-            type='submit'
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none" 
+    <div className="min-h-screen bg-blue-200 flex items-center justify-center">
+      {clicked ? (
+        <div className="max-w-md w-full p-6 bg-white shadow-lg rounded-lg">
+          <div id="recaptcha-container"></div>
+          <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">
+            User Registration
+          </h2>
+          <form onSubmit={sendOtp}>
+            <div className="mb-6">
+              <label htmlFor="username" className="block text-lg font-semibold mb-2">
+                Username:
+              </label>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-lg"
+                onChange={(e) =>
+                  setValues({ ...values, [e.target.name]: e.target.value })
+                }
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-lg font-semibold mb-2">
+                Email:
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-lg"
+                onChange={(e) =>
+                  setValues({ ...values, [e.target.name]: e.target.value })
+                }
+                required
+              />
+            </div>
+            <div className="mb-6">
+              <label htmlFor="mobilenumber" className="block text-lg font-semibold mb-2">
+                Mobile Number:
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-lg"
+                onChange={(e) =>
+                  setValues({ ...values, [e.target.name]: e.target.value })
+                }
+                required
+              />
+            </div>
+            <div className="mb-6">
+              <label htmlFor="password" className="block text-lg font-semibold mb-2">
+                Password:
+              </label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-lg"
+                onChange={(e) =>
+                  setValues({ ...values, [e.target.name]: e.target.value })
+                }
+                required
+              />
+            </div>
+            <div className="mb-6">
+              <label htmlFor="confirmPassword" className="block text-lg font-semibold mb-2">
+                Confirm Password:
+              </label>
+              <input
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-lg"
+                onChange={(e) =>
+                  setValues({ ...values, [e.target.name]: e.target.value })
+                }
+                required
+              />
+            </div>
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none text-lg"
               >
-              CONTINUE
+                Continue
+              </button>
+            </div>
+          </form>
+        </div>
+      ) : (
+        <div className='bg-blue-400 py-8 px-8'>
+        <div className='bg-blue-100 py-8 px-8 rounded'>
+        <div className="text-center">
+        <h1 className="text-4xl font-bold text-black-500 mb-4">CAREER CONNECT || SIGNUP</h1>
+        <div className="relative mt-10">
+          <label
+            htmlFor="otp"
+            className="block text-2xl font-semibold mb-2 text-gray-600"
+          >
+            OTP
+          </label>
+          <input
+            placeholder="123456"
+            value={otpValue}
+            onChange={(e) => setOtpValue(e.target.value)}
+            name="otp"
+            type="text"
+            className="w-64 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-black text-lg"
+          />
+          <div className="mt-4">
+            <button
+              className="w-64 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none text-lg"
+              onClick={otpVerify}
+            >
+              Signup
             </button>
           </div>
-        </form>
+        </div>
       </div>
-
-  ) : (
-    <>
-    <div className="sm:mx-auto sm:w-full sm:max-w-sm mt-32">
-                    <h1 className="font-sans text-center font-black text-indigo-500 text-3xl ">CAREER CONNECT || SIGNUP</h1>
-                    <p className="text-sm font-semibold text-center "></p>
-
-                  </div>
-
-
-                  <div className="relative mt-10">
-                    <p className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
-                      OTP
-                    </p>
-                    <input
-                      placeholder="123456"
-                      value={otpValue}
-                      onChange={(e) => setOtpValue(e.target.value)}
-                      name="otp"
-                      type="text"
-                      className="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
-                    />
-
-                    <div className="relative mt-2">
-                      <p
-                            className="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg transition duration-200 hover:bg-indigo-600 ease hover:cursor-pointer"
-                        onClick={otpVerify}
-                      >
-                        Signup
-                      </p>
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
-      </>
+      </div>
+      </div>
+      )}
+    </div>
   );
 };
 
-
 export default Register;
-
