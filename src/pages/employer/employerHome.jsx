@@ -96,7 +96,7 @@ function EmployerHome() {
       </div>
 
       <ViewAllPost/>
-      {posts.length != 0 ? (
+      {posts && posts.length !== 0 ? (
         <>
           <div>
             <EmpPosts
